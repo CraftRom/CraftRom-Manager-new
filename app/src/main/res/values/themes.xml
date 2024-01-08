@@ -1,0 +1,66 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Base.V21.Theme.Foundation.Light" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <item name="android:windowBackground">?colorSurface</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="dialogTheme">@style/ThemeOverlay.Foundation.Dialog</item>
+        <item name="alertDialogTheme">@style/ThemeOverlay.Foundation.Dialog</item>
+        <item name="android:statusBarColor">@color/status_bar</item>
+        <item name="android:navigationBarColor">@android:color/white</item>
+        <item name="android:colorPrimaryDark">@color/status_bar</item>
+
+    </style>
+
+    <style name="Base.V21.Theme.Foundation" parent="Theme.MaterialComponents.NoActionBar">
+        <item name="android:windowBackground">?colorSurface</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="dialogTheme">@style/ThemeOverlay.Foundation.Dialog</item>
+        <item name="alertDialogTheme">@style/ThemeOverlay.Foundation.Dialog</item>
+        <item name="android:statusBarColor">@color/status_bar</item>
+        <item name="android:navigationBarColor">@android:color/white</item>
+        <item name="android:colorPrimaryDark">@color/status_bar</item>
+    </style>
+
+    <style name="Theme.Foundation.Light" parent="Base.V21.Theme.Foundation.Light" />
+
+    <style name="Theme.Foundation" parent="Base.V21.Theme.Foundation" />
+
+    <style name="Theme.Splash" parent="ThemeFoundationColor.Default">
+        <!-- Збереження фонового кольору активності, який буде використовуватися за стандарту -->
+        <item name="android:windowBackground">?attr/colorSecondary</item>
+        <item name="android:navigationBarColor">@color/blue</item> <!-- Колір навігаційної панелі -->
+        <item name="actionBarSize">0dp</item> <!-- Розмір панелі дій -->
+
+        <!-- Встановлення статус-бару -->
+        <item name="android:statusBarColor">?attr/colorSecondary</item>
+        <item name="android:windowIsTranslucent">false</item>
+        <item name="android:windowContentOverlay">@null</item>
+
+        <!-- Вимкнення заголовка та панелі дій -->
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="Theme.Landing" parent="ThemeFoundationColor.Default">
+        <!-- Збереження фонового кольору активності, який буде використовуватися за стандарту -->
+        <item name="android:windowBackground">?attr/colorSecondary</item>
+        <item name="android:navigationBarColor">@android:color/white</item> <!-- Колір навігаційної панелі -->
+        <item name="actionBarSize">0dp</item> <!-- Розмір панелі дій -->
+
+        <!-- Встановлення повного прозорого статус-бару -->
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:windowIsTranslucent">false</item>
+        <item name="android:windowContentOverlay">@null</item>
+
+        <!-- Вимкнення заголовка та панелі дій -->
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="Base.V21.ThemeOverlay.Foundation.Dialog" parent="ThemeOverlay.MaterialComponents.Dialog">
+        <item name="android:windowMinWidthMajor">@dimen/abc_dialog_min_width_major</item>
+        <item name="android:windowMinWidthMinor">@dimen/abc_dialog_min_width_minor</item>
+    </style>
+
+    <style name="ThemeOverlay.Foundation.Dialog" parent="Base.V21.ThemeOverlay.Foundation.Dialog" />
+</resources>

@@ -1,0 +1,80 @@
+<resources>
+    <string name="app_name">Craft Rom</string>
+    <string name="title_home">Home</string>
+
+    <string name="title_device">Hardware Info</string>
+
+    <string name="title_jitter" translatable="false">@string/jitter</string>
+    <string name="subtitle_jitter">Very useful piece of crap</string>
+
+    <string name="title_dashboard">Dashboard</string>
+
+    <string name="title_dcenter">Download Center</string>
+    <string name="subtitle_dcenter">Like, you can download or update something</string>
+
+    <!-- Device -->
+    <string name="home_display_title">Display</string>
+    <string name="home_memory_title">Memory</string>
+    <string name="home_battery_title">Battery</string>
+
+    <string name="home_codename_title">Device</string>
+    <string name="home_platform_title">Board</string>
+    <string name="home_android_title">Android</string>
+    <string name="home_exodusos_title">ExodusOS</string>
+    <string name="home_security_title">Security patch</string>
+    <string name="home_kernel_title">Kernel</string>
+    <string name="home_abi_title" translatable="false">ABI</string>
+    <string name="home_machine_title">Machine</string>
+    <string name="home_mode_title">Mode</string>
+    <string name="home_instructions_title">Supported ABI</string>
+    <string name="home_core_title">Cores</string>
+    <string name="home_core_speed_title">Clock speed</string>
+    <string name="home_screen_size_title">Size</string>
+    <string name="home_screen_resolution_title">Resolution</string>
+    <string name="home_density_title">Density</string>
+    <string name="home_ram_title">RAM</string>
+    <string name="home_free_ram_title">Free RAM</string>
+    <string name="home_technology_title">Technology</string>
+    <string name="battery_level_title">Level</string>
+    <string name="home_temperature_title">Temperature</string>
+    <string name="home_voltage_title">Voltage</string>
+    <string name="home_health_title">Health</string>
+    <string name="home_status_title">Status</string>
+    <string name="home_conect_title">Connection</string>
+    <string name="home_sys_uptime_title">System Uptime</string>
+    <string name="home_cycle_title">Cycle</string>
+    <string name="home_java_title">Java VM</string>
+    <string name="home_opengl_title">OpenGL ES</string>
+    <string name="home_vulkan_title">Vulkan</string>
+    <string name="home_gfs_title">Google Services Framework ID</string>
+    <string name="home_internal_title">Data Storage</string>
+    <string name="home_external_title">External Memory (SD Card)</string>
+    <string name="home_root_title">Rooted</string>
+    <string name="home_encryption_title">Encrypted Storage</string>
+    <string name="home_security_providers_title">Security providers</string>
+
+    <!-- Jitter -->
+    <string name="jitter" translatable="false">Jitter</string>
+    <string name="jitter_name">Identifying Jitter</string>
+    <string name="totalish_mma">"CPU-total duration: %.3fms"</string>
+    <string name="ui_frametime_mma">"UI duration: %.3fms"</string>
+    <string name="rt_frametime_mma">"RT duration: %.3fms"</string>
+    <string name="total_mma">"Total duration: %.3fms"</string>
+
+    <string name="minute">m</string>
+    <string name="hour">h</string>
+    <string name="day">d</string>
+    <string name="minutes_ago">%1$d minutes ago</string>
+    <string name="hours_ago">%1$d hours ago</string>
+    <string name="days_ago">%1$d days ago</string>
+
+    <string name="copyr" translatable="false">© 2020-%s All Right Reserved.</string>
+    <string name="app_name_version">%s version: %s </string>
+
+    <!--Toasts, Dialogs-->
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <!-- Common -->
+    <string name="common_empty_result" translatable="false">-</string>
+    <string name="todo" translatable="false">TODO</string>
+</resources>

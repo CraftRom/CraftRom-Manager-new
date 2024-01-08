@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="status_bar">@color/blue</color>
+    <color name="colorFalse">#E53935</color>
+    <color name="colorTrue">#4CAF50</color>
+    <color name="google_gray">#B35F6368</color>
+    <color name="colorToolbar">#F9F9F9</color>
+    <color name="colorNav">@color/blue</color>
+    <color name="colorOnSurface_hard">#444444</color>
+
+    <!-- Themes -->
+    <color name="blue">#2196f3</color>
+    <color name="blueTransparent50">#802196F3</color>
+    <color name="blueTransparent36">#5C2196F3</color>
+
+    <!-- Card Background -->
+    <color name="black">#212121</color>
+    <color name="blackLight">#2F2F2F</color>
+    <color name="blackTransparent86">#DB212121</color>
+    <color name="blackTransparent50">#80212121</color>
+    <color name="blackTransparent36">#5C212121</color>
+
+    <!-- Divider -->
+    <color name="divider">#888</color>
+    <color name="dividerVariant">?colorPrimaryVariant</color>
+
+    <color name="whiteTransparent12">#1FFFFFFF</color>
+    <color name="blackTransparent12">#1F212121</color>
+    <color name="anilistDarkBlueTransparent12">#1F2B2D42</color>
+    <color name="anilistDarkWhiteTransparent12">#1F9FADBD</color>
+
+    <color name="color_classic">#6a4427</color>
+    <color name="color_live">#083</color>
+    <color name="color_ptr">#0070dd</color>
+    <color name="color_tbc">#65ae0f</color>
+    <color name="color_wow">#3e281e</color>
+    <color name="color_wrath">#6b9ede</color>
+    <color name="default_color">#535353</color>
+
+    <!-- Default factions color. -->
+    <color name="ALLIANCE">#0078ff</color>
+    <color name="HORDE">#b30000</color>
+
+    <color name="ALLIANCE_CARD">#140078FF</color>
+    <color name="HORDE_CARD">#14B30000</color>
+
+    <!-- Class colors. -->
+    <color name="DEATHKNIGHT">#c41e3b</color>
+    <color name="DEMONHUNTER">#a330c9</color>
+    <color name="DRUID">#ff7c0a</color>
+    <color name="EVOKER">#33937f</color>
+    <color name="HUNTER">#aad372</color>
+    <color name="MAGE">#68ccef</color>
+    <color name="MONK">#00ffba</color>
+    <color name="PALADIN">#f48cba</color>
+    <color name="PRIEST">#f0ebe0</color>
+    <color name="ROGUE">#fff468</color>
+    <color name="SHAMAN">#2359ff</color>
+    <color name="WARLOCK">#9382c9</color>
+    <color name="WARRIOR">#c69b6d</color>
+
+    <color name="LEGENDARY">#ff8000</color>
+    <color name="EPIC">#c600ff</color>
+    <color name="RARE">#0081ff</color>
+    <color name="UNCOMMON">#1eff00</color>
+
+    <color name="gold">#ffbd0a</color>
+
+</resources>

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/navigation_home">
+
+    <fragment
+        android:id="@+id/navigation_home"
+        android:name="com.craftrom.manager.ui.fragment.home.HomeFragment"
+        android:label="@string/title_home"
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_navigation_home_to_navigation_device"
+            app:destination="@id/navigation_device"
+            app:enterAnim="@anim/fragment_enter"
+            app:exitAnim="@anim/fragment_exit"
+            app:popEnterAnim="@anim/fragment_enter_pop"
+            app:popExitAnim="@anim/fragment_exit_pop"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_device"
+        android:name="com.craftrom.manager.ui.fragment.device.DeviceFragment"
+        android:label="@string/title_device"
+        tools:layout="@layout/fragment_device" />
+
+    <fragment
+        android:id="@+id/navigation_jitter"
+        android:name="com.craftrom.manager.ui.fragment.jitter.JitterFragment"
+        android:label="@string/title_jitter"
+        tools:layout="@layout/fragment_jitter" />
+
+    <fragment
+        android:id="@+id/navigation_dashboard"
+        android:name="com.craftrom.manager.ui.dashboard.DashboardFragment"
+        android:label="@string/title_dashboard"
+        tools:layout="@layout/fragment_dashboard" />
+
+    <fragment
+        android:id="@+id/navigation_dcenter"
+        android:name="com.craftrom.manager.ui.fragment.download_center.DownloadCenterFragment"
+        android:label="@string/title_dcenter"
+        tools:layout="@layout/fragment_download_center" />
+</navigation>

@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <com.google.android.material.card.MaterialCardView
+        style="@style/WidgetFoundation.Card"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:focusable="false" >
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingStart="@dimen/l1"
+            android:paddingTop="@dimen/l_50"
+            android:paddingEnd="@dimen/l1"
+            android:paddingBottom="@dimen/l_50"
+            tools:layout_gravity="center">
+
+            <ImageView
+                android:id="@+id/home_display_icon"
+                style="@style/WidgetFoundation.Icon.Primary"
+                android:padding="@dimen/l_25"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_display"
+                android:contentDescription="@string/todo" />
+
+            <TextView
+                android:id="@+id/home_display_title"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/l1"
+                android:textAppearance="@style/AppearanceFoundation.Title"
+                android:textColor="?colorPrimary"
+                android:maxLines="1"
+                android:ellipsize="end"
+                android:text="@string/home_display_title"
+                app:layout_constraintBottom_toBottomOf="@+id/home_display_icon"
+                app:layout_constraintStart_toEndOf="@+id/home_display_icon"
+                app:layout_constraintTop_toTopOf="@+id/home_display_icon" />
+
+            <androidx.constraintlayout.widget.Barrier
+                android:id="@+id/home_device_title_barrier"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:barrierDirection="bottom"
+                tools:constraint_referenced_ids="home_display_icon,home_display_title" />
+
+            <HorizontalScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fadingEdgeLength="@dimen/l1"
+                android:requiresFadingEdge="horizontal"
+                android:scrollbars="none"
+                app:layout_constraintTop_toBottomOf="@+id/home_display_icon">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                        <LinearLayout
+                            android:id="@+id/home_screen_resolution"
+                            style="@style/W.Home.Item.Top"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent">
+
+
+                            <TextView
+                                style="@style/W.Home.ItemContent"
+                                android:text="@string/home_screen_resolution_title" />
+
+                            <TextView
+                                android:id="@+id/home_screen_resolution_info"
+                                style="@style/W.Home.ItemContent.Right"
+                                tools:text="onclite" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/home_density"
+                            style="@style/W.Home.Item"
+                            app:layout_constraintStart_toStartOf="@+id/home_screen_resolution"
+                            app:layout_constraintTop_toBottomOf="@+id/home_screen_resolution">
+
+                            <TextView
+                                style="@style/W.Home.ItemContent"
+                                android:text="@string/home_density_title" />
+
+                            <TextView
+                                android:id="@+id/home_density_info"
+                                style="@style/W.Home.ItemContent.Right"
+                                tools:text="onclite" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/home_screen_size"
+                            style="@style/W.Home.Item.Bottom"
+                            app:layout_constraintStart_toStartOf="@+id/home_screen_resolution"
+                            app:layout_constraintTop_toBottomOf="@+id/home_density">
+
+                            <TextView
+                                style="@style/W.Home.ItemContent"
+                                android:text="@string/home_screen_size_title" />
+
+                            <TextView
+                                android:id="@+id/home_screen_size_info"
+                                style="@style/W.Home.ItemContent.Right"
+                                tools:text="onclite" />
+
+                        </LinearLayout>
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                </LinearLayout>
+
+            </HorizontalScrollView>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+</layout>

@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <RelativeLayout
+        android:id="@+id/newsImageView"
+        android:layout_width="wrap_content"
+        android:layout_height="180sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/newsImg"
+            android:layout_width="match_parent"
+            android:layout_height="180sp"
+            android:adjustViewBounds="true"
+            android:contentDescription="TODO"
+            android:scaleType="centerCrop"
+            app:layout_constraintDimensionRatio="2:1"
+            app:layout_constraintHorizontal_bias="0.0" />
+
+        <TextView
+            android:id="@+id/categoryText"
+            style="@style/NewsArticle.Title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="10dp"
+            android:text="category"
+            android:textSize="12sp"
+            android:textAppearance="@style/AppearanceFoundation.Body"
+            android:textStyle="bold" />
+        <TextView
+            android:id="@+id/titleTextView"
+            style="@style/NewsArticle.Title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:text="Title"
+            android:textAppearance="@style/AppearanceFoundation.Body"
+            android:textStyle="bold" />
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/descriptionTextView"
+        style="@style/NewsArticle.Desc"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/l1"
+        android:layout_marginBottom="10dp"
+        android:text="Description"
+        android:textAppearance="@style/AppearanceFoundation.Caption"
+        app:layout_constraintTop_toBottomOf="@+id/newsImageView" />
+
+    <TextView
+        android:id="@+id/pubDateTextView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/l_50"
+        android:text=""
+        android:textAppearance="@style/AppearanceFoundation.Caption.Variant"
+        android:textColor="?colorOnSurfaceVariant"
+        android:textSize="11sp"
+        android:textStyle="italic"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/descriptionTextView"
+        app:layout_constraintTop_toBottomOf="@+id/descriptionTextView"
+        tools:ignore="SmallSp"
+        tools:text="@tools:sample/date/ddmmyy" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

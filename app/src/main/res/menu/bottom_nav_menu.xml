@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/navigation_home"
+        android:icon="@drawable/ic_logo"
+        android:title="@string/title_home" />
+
+    <item
+        android:id="@+id/navigation_jitter"
+        android:icon="@drawable/ic_jitter"
+        android:title="@string/title_jitter" />
+
+    <item
+        android:id="@+id/navigation_dcenter"
+        android:icon="@drawable/ic_download"
+        android:title="@string/title_dcenter" />
+
+</menu>

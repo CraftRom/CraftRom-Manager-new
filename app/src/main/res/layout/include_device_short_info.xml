@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <com.google.android.material.card.MaterialCardView
+        style="@style/WidgetFoundation.Card"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:focusable="false" >
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingStart="@dimen/l1"
+            android:paddingTop="@dimen/l_50"
+            android:paddingEnd="@dimen/l1"
+            android:paddingBottom="@dimen/l_50"
+            tools:layout_gravity="center">
+
+            <ImageView
+                android:id="@+id/home_dev_icon"
+                style="@style/WidgetFoundation.Icon.Primary"
+                android:padding="@dimen/l_25"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_device"
+                android:contentDescription="@string/todo" />
+
+            <TextView
+                android:id="@+id/home_dev_title"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/l1"
+                android:textAppearance="@style/AppearanceFoundation.Title"
+                android:textColor="?colorPrimary"
+                android:maxLines="1"
+                android:ellipsize="end"
+                android:text="@string/app_name"
+                app:layout_constraintBottom_toBottomOf="@+id/home_dev_icon"
+                app:layout_constraintStart_toEndOf="@+id/home_dev_icon"
+                app:layout_constraintTop_toTopOf="@+id/home_dev_icon" />
+
+            <androidx.constraintlayout.widget.Barrier
+                android:id="@+id/home_device_title_barrier"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:barrierDirection="bottom"
+                tools:constraint_referenced_ids="home_dev_icon,home_dev_title" />
+
+            <HorizontalScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fadingEdgeLength="@dimen/l1"
+                android:requiresFadingEdge="horizontal"
+                android:scrollbars="none"
+                app:layout_constraintTop_toBottomOf="@+id/home_dev_icon">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                        <LinearLayout
+                            android:id="@+id/home_root"
+                            style="@style/W.Home.Item.Top"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent">
+
+                            <TextView
+                                style="@style/W.Home.ItemContent"
+                                android:text="@string/home_root_title" />
+
+                            <TextView
+                                android:id="@+id/home_root_info"
+                                style="@style/W.Home.ItemContent.Right"
+                                tools:text="onclite" />
+
+                        </LinearLayout>
+                        <LinearLayout
+                            android:id="@+id/home_encryption"
+                            style="@style/W.Home.Item"
+                            app:layout_constraintStart_toStartOf="@+id/home_root"
+                            app:layout_constraintTop_toBottomOf="@+id/home_root">
+
+                            <TextView
+                                style="@style/W.Home.ItemContent"
+                                android:text="@string/home_encryption_title" />
+
+                            <TextView
+                                android:id="@+id/home_encryption_info"
+                                style="@style/W.Home.ItemContent.Right"
+                                tools:text="onclite" />
+
+                        </LinearLayout>
+                        <LinearLayout
+                            android:id="@+id/home_security_providers"
+                            style="@style/W.Home.Item"
+                            app:layout_constraintStart_toStartOf="@+id/home_root"
+                            app:layout_constraintTop_toBottomOf="@+id/home_encryption">
+
+                            <TextView
+                                style="@style/W.Home.ItemContent"
+                                android:text="@string/home_security_providers_title" />
+
+                            <TextView
+                                android:id="@+id/home_security_providers_info"
+                                style="@style/W.Home.ItemContent.Right"
+                                tools:text="onclite" />
+
+                        </LinearLayout>
+                        <LinearLayout
+                            android:id="@+id/home_java"
+                            style="@style/W.Home.Item.Top"
+                            app:layout_constraintStart_toStartOf="@+id/home_encryption"
+                            app:layout_constraintTop_toBottomOf="@+id/home_security_providers">
+
+                            <TextView
+                                style="@style/W.Home.ItemContent"
+                                android:text="@string/home_java_title" />
+
+                            <TextView
+                                android:id="@+id/home_java_info"
+                                style="@style/W.Home.ItemContent.Right"
+                                tools:text="onclite" />
+
+                        </LinearLayout>
+                        <LinearLayout
+                            android:id="@+id/home_vulkan"
+                            style="@style/W.Home.Item"
+                            app:layout_constraintStart_toStartOf="@+id/home_security_providers"
+                            app:layout_constraintTop_toBottomOf="@+id/home_java">
+
+
+                            <TextView
+                                style="@style/W.Home.ItemContent"
+                                android:text="@string/home_vulkan_title" />
+
+                            <TextView
+                                android:id="@+id/home_vulkan_info"
+                                style="@style/W.Home.ItemContent.Right"
+                                tools:text="onclite" />
+
+                        </LinearLayout>
+                        <LinearLayout
+                            android:id="@+id/home_opengl"
+                            style="@style/W.Home.Item.Bottom"
+                            app:layout_constraintStart_toStartOf="@+id/home_java"
+                            app:layout_constraintTop_toBottomOf="@+id/home_vulkan">
+
+
+                            <TextView
+                                style="@style/W.Home.ItemContent"
+                                android:text="@string/home_opengl_title" />
+
+                            <TextView
+                                android:id="@+id/home_opengl_info"
+                                style="@style/W.Home.ItemContent.Right"
+                                tools:text="onclite" />
+
+                        </LinearLayout>
+                        <LinearLayout
+                            android:id="@+id/home_gfs"
+                            style="@style/W.Home.Item.Top"
+                            app:layout_constraintStart_toStartOf="@+id/home_vulkan"
+                            app:layout_constraintTop_toBottomOf="@+id/home_opengl">
+
+                            <TextView
+                                style="@style/W.Home.ItemContent"
+                                android:text="@string/home_gfs_title" />
+
+                            <TextView
+                                android:id="@+id/home_gfs_info"
+                                style="@style/W.Home.ItemContent.Right"
+                                tools:text="onclite" />
+
+                        </LinearLayout>
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                </LinearLayout>
+
+            </HorizontalScrollView>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+</layout>

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<View android:id="@+id/characterBarDivider1"
+    android:layout_width="@dimen/l_250"
+    android:layout_height="match_parent"
+    android:layout_marginHorizontal="@dimen/l_25"
+    android:background="@color/whiteTransparent12"
+    xmlns:android="http://schemas.android.com/apk/res/android" />
