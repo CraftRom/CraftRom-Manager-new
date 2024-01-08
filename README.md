@@ -18,7 +18,7 @@ Welcome!  The application is distributed <strong>without ads</strong> and was cr
 
 ## License
 
-    Copyright (C) 2020-2021 melles1991 <melles.android@gmail.com>
+    Copyright (C) 2020-2024 melles1991 <melles.android@gmail.com>
 
     CraftRom Manager is a free softwares: you can redistribute
     it and/or modify it under the terms of the GNU General Public License as
