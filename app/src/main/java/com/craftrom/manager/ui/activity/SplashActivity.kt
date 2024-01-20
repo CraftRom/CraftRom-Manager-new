@@ -98,7 +98,7 @@ class SplashActivity : AppCompatActivity() {
 
                 if (isFirstRun) {
                     // Перший запуск
-                    Constants.changeActivity<MainActivity>(this@SplashActivity)
+                    Constants.changeActivity<IntroActivity>(this@SplashActivity)
                     finish()
                 } else {
                     // Не перший запуск

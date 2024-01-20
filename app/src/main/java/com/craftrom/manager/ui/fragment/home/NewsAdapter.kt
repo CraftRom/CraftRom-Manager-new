@@ -1,5 +1,6 @@
 package com.craftrom.manager.ui.fragment.home
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.net.Uri
 import android.view.LayoutInflater
@@ -41,6 +42,7 @@ class NewsAdapter(private val newsList: List<NewsItem>) :
         }
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         if (holder is NewsViewHolder) {
             val currentItemIndex = position / 2
@@ -54,7 +56,7 @@ class NewsAdapter(private val newsList: List<NewsItem>) :
                 binding.categoryText.text = currentItem.category
                 binding.titleTextView.text = currentItem.title
                 binding.descriptionTextView.text = currentItem.description
-                binding.pubDateTextView.text = formattedDate
+                binding.pubDateTextView.text = "$formattedDate \u2022 ${currentItem.author}"
                 if (imageUrl.isNotEmpty()) {
                     Picasso.get()
                         .load(imageUrl)

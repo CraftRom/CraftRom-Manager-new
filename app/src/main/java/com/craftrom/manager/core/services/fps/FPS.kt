@@ -16,8 +16,11 @@ import android.widget.TextView
 import com.craftrom.manager.R
 import com.craftrom.manager.core.time.CoroutineTimer
 import com.craftrom.manager.core.utils.Constants
+import java.io.BufferedReader
 import java.io.File
+import java.io.FileReader
 import java.io.IOException
+import java.io.InputStreamReader
 import java.io.RandomAccessFile
 import kotlin.math.roundToInt
 
@@ -76,13 +79,13 @@ class FPS : Service() {
         val dir = findFpsFilePath()
         try {
             // Спробуємо отримати дані через RandomAccessFile
-            val fps = RandomAccessFile(dir, "r").use { it.readLine().toInt() }
+            val fps = readLineWithRoot(dir)
             this@FPS.tvFps.text = fps.toString()
             Log.e(Constants.TAG, "FPS : $fps")
         } catch (ioe: IOException) {
             // Обробка помилки читання через RandomAccessFile
             try {
-                val fps = RandomAccessFile(dir, "r").use { it.readLine().split(" ")[1].toInt() }
+                val fps = readLinesWithRoot(dir)[0].split(" ")[1].toInt()
                 this@FPS.tvFps.text = fps.toDouble().roundToInt().toString()
                 Log.e(Constants.TAG, "FPS : $fps")
             } catch (shellException: Exception) {
@@ -98,6 +101,39 @@ class FPS : Service() {
 
     }
 
+    /**
+     * Reads lines from the specified file with root access.
+     *
+     * @param filename The file to read from.
+     * @throws IOException If the file couldn't be read.
+     */
+    @Throws(IOException::class)
+    fun readLinesWithRoot(filename: String): List<String> {
+        val process = Runtime.getRuntime().exec("su -c cat $filename")
+        val bufferedReader = BufferedReader(InputStreamReader(process.inputStream))
+        val lines = bufferedReader.readLines()
+        bufferedReader.close()
+
+        return lines
+    }
+
+    /**
+     * Reads a line from the specified file with root access.
+     *
+     * @param filename The file to read from.
+     * @throws IOException If the file couldn't be read.
+     */
+    @Throws(IOException::class)
+    fun readLineWithRoot(filename: String): Int {
+        val process = Runtime.getRuntime().exec("su -c cat $filename")
+        val bufferedReader = BufferedReader(InputStreamReader(process.inputStream))
+        val line = bufferedReader.readLine()
+        bufferedReader.close()
+
+        return line?.toInt() ?: throw IOException("Failed to read line from file")
+    }
+
+
     private fun findFpsFilePath(): String {
         val sysFolder = File("/sys")
 
@@ -107,7 +143,7 @@ class FPS : Service() {
             .map { it.absolutePath }
             .firstOrNull()
 
-        val fpsFilePath = if (measuredFps != null && measuredFps.isNotEmpty()) {
+        val fpsFilePath = if (!measuredFps.isNullOrEmpty()) {
             measuredFps
         } else {
             sysFolder.walk()

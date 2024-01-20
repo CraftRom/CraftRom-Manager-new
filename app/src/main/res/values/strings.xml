@@ -1,5 +1,10 @@
 <resources>
     <string name="app_name">Craft Rom</string>
+
+    <!--Sections-->
+    <string name="title_about">About</string>
+    <string name="subtitle_about">Delusion about us</string>
+    <string name="settings">Settings</string>
     <string name="title_home">Home</string>
 
     <string name="title_device">Hardware Info</string>
@@ -11,6 +16,21 @@
 
     <string name="title_dcenter">Download Center</string>
     <string name="subtitle_dcenter">Like, you can download or update something</string>
+
+    <!-- Intro -->
+    <string name="store_intro_title">Welcome to the Craft Rom!</string>
+    <string name="store_intro">The applications are provided on an \“as is\” basis without warranties of any kind.</string>
+    <string name="permission_text">Allow installing apps from Craft Rom?</string>
+
+    <!-- About -->
+    <string name="love"><![CDATA[</> with ❤️ by Dmytro Galytskyi]]></string>
+    <string name="follow">Follow Us</string>
+    <string name="support">Support Us</string>
+    <string name="support_us_desc">Craft Rom is, and always will be, free and ad-free. You can show your support by making a donation, but please consider donating to the Armed Forces of Ukraine (UAF) since it is thanks to them that I was able to create this program.</string>
+    <string name="tg_news">News</string>
+    <string name="tg_chat">Support</string>
+    <string name="website">Website</string>
+    <string name="github" translatable="false">GitHub</string>
 
     <!-- Device -->
     <string name="home_display_title">Display</string>
@@ -71,9 +91,15 @@
     <string name="copyr" translatable="false">© 2020-%s All Right Reserved.</string>
     <string name="app_name_version">%s version: %s </string>
 
+    <!-- Button -->
+    <string name="donate">Donate</string>
+    <string name="donate_zsu">Support UAF</string>
+
+
     <!--Toasts, Dialogs-->
     <string name="yes">Yes</string>
     <string name="no">No</string>
+
     <!-- Common -->
     <string name="common_empty_result" translatable="false">-</string>
     <string name="todo" translatable="false">TODO</string>

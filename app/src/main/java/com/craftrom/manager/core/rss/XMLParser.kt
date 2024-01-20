@@ -13,6 +13,7 @@ import java.util.*
 internal class XMLParser : DefaultHandler() {
 
     private var elementOn = false
+    private var parsingAuthor = false
     private var parsingCategory = false
     private var parsingTitle = false
     private var parsingDescription = false
@@ -20,6 +21,7 @@ internal class XMLParser : DefaultHandler() {
     private var parsingMediaContent = false
 
     private var elementValue: String? = null
+    private var author = EMPTY_STRING
     private var category = EMPTY_STRING
     private var title = EMPTY_STRING
     private var link: String? = null
@@ -34,7 +36,11 @@ internal class XMLParser : DefaultHandler() {
         Log.d("Parser", "Start element: $qName, Namespace URI: $uri")
         elementOn = true
         when (localName.lowercase(Locale.getDefault())) {
-            ITEM -> currentItem = NewsItem("", "", "", "", "", "")
+            ITEM -> currentItem = NewsItem("", "", "", "", "", "", "")
+            AUTHOR -> {
+                parsingAuthor = true
+                author = EMPTY_STRING
+            }
             TITLE -> {
                 parsingTitle = true
                 title = EMPTY_STRING
@@ -69,6 +75,12 @@ internal class XMLParser : DefaultHandler() {
                 ITEM -> {
                     items.add(it)
                     currentItem = null
+                }
+                AUTHOR -> {
+                    parsingAuthor = false
+                    if (author.isNotEmpty()) {
+                        it.author = author
+                    }
                 }
                 CATEGORY -> {
                     parsingCategory = false
@@ -112,6 +124,10 @@ internal class XMLParser : DefaultHandler() {
             elementValue = buff
             elementOn = false
         }
+        if (parsingAuthor) {
+            author += buff
+            Log.d("XMLParser", "Author value: $author")
+        }
         if (parsingCategory) {
             category += buff
             Log.d("XMLParser", "Category value: $category")
@@ -147,6 +163,7 @@ internal class XMLParser : DefaultHandler() {
         private const val EMPTY_STRING = ""
         private const val EMPTY_IMG = "https://wow.zamimg.com/uploads/blog/images/35881-why-nerfing-shadow-priest-damage-wont-change-their-importance-in-mythic-guide.jpg"
         private const val ITEM = "item"
+        private const val AUTHOR = "author"
         private const val CATEGORY = "category"
         private const val TITLE = "title"
         private const val DESCRIPTION = "description"

@@ -11,7 +11,11 @@ import com.craftrom.manager.R
 import com.craftrom.manager.core.app.ServiceContext.context
 import com.craftrom.manager.core.utils.Constants.TAG
 import com.craftrom.manager.core.utils.Utils
+import java.io.BufferedReader
+import java.io.File
+import java.io.FileReader
 import java.io.IOException
+import java.io.InputStreamReader
 import java.io.RandomAccessFile
 
 
@@ -50,10 +54,13 @@ open class BatteryInfo  {
             try {
                 return readLine(file).toInt().toString() + " Cycles"
             } catch (ioe: IOException) {
+                try {
+                    return readLineWithRoot     (file).toInt().toString() + " Cycles"
+                } catch (ioe :IOException) {
                 Log.e(
                     TAG, "Cannot read battery cycle from "
                             + file, ioe
-                )
+                )}
             } catch (nfe: NumberFormatException) {
                 Log.e(
                     TAG, "Read a badly formatted battery cycle from "
@@ -70,12 +77,25 @@ open class BatteryInfo  {
          * @param filename The file to read from.
          * @throws IOException If the file couldn't be read.
          */
-        @Nullable
         @Throws(IOException::class)
         private fun readLine(filename: String): Long {
-            return RandomAccessFile(filename, "r").use { it.readLine().toLong() }
+            return BufferedReader(FileReader(File(filename))).use { it.readLine().toLong() }
         }
+        /**
+         * Reads a line from the specified file with root access.
+         *
+         * @param filename The file to read from.
+         * @throws IOException If the file couldn't be read.
+         */
+        @Throws(IOException::class)
+        fun readLineWithRoot(filename: String): Long {
+                val process = Runtime.getRuntime().exec("su -c cat $filename")
+                val bufferedReader = BufferedReader(InputStreamReader(process.inputStream))
+                val line = bufferedReader.readLine()
+                bufferedReader.close()
 
+                return line?.toLong() ?: throw IOException("Failed to read line from file")
+        }
         fun technology(): String {
             return updateBatteryInfo()?.getStringExtra(BatteryManager.EXTRA_TECHNOLOGY) ?: errorResult()
         }

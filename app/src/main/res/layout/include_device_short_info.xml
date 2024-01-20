@@ -165,7 +165,7 @@
                         </LinearLayout>
                         <LinearLayout
                             android:id="@+id/home_gfs"
-                            style="@style/W.Home.Item.Top"
+                            style="@style/W.Home.Item.TopBottom"
                             app:layout_constraintStart_toStartOf="@+id/home_vulkan"
                             app:layout_constraintTop_toBottomOf="@+id/home_opengl">
 

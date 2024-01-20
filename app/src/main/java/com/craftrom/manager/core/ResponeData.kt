@@ -7,6 +7,7 @@ import java.util.Date
 import java.util.Locale
 
 data class NewsItem(
+    var author: String = "",
     var category: String = "",
     var title: String = "",
     var description: String = "",
@@ -32,3 +33,9 @@ data class NewsItem(
         }
     }
 }
+data class Link(
+    val iconResId: Int,
+    val labelResId: Int,
+    val url: String
+)
+

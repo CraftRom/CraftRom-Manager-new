@@ -4,6 +4,9 @@ import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
@@ -11,9 +14,13 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
 import androidx.cardview.widget.CardView
+import androidx.core.view.MenuHost
+import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.Navigation
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.craftrom.manager.MainActivity
 import com.craftrom.manager.R
@@ -22,6 +29,7 @@ import com.craftrom.manager.core.rss.RssFeed
 import com.craftrom.manager.core.services.RetrofitInstance.setupRetrofitCall
 import com.craftrom.manager.core.utils.Constants
 import com.craftrom.manager.core.utils.Constants.DEFAULT_NEWS_SOURCE
+import com.craftrom.manager.core.utils.Constants.TAG
 import com.craftrom.manager.core.utils.hwinfo.DeviceSystemInfo
 import com.craftrom.manager.databinding.FragmentHomeBinding
 import kotlinx.coroutines.Dispatchers
@@ -30,7 +38,7 @@ import kotlinx.coroutines.launch
 import retrofit2.Call
 import java.util.Locale
 
-class HomeFragment : Fragment() {
+class HomeFragment : Fragment(), MenuProvider {
 
     private var _binding: FragmentHomeBinding? = null
     private var job: Job? = null // Для відміни корутини
@@ -54,6 +62,9 @@ class HomeFragment : Fragment() {
     ): View {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val root: View = binding.root
+        val menuHost: MenuHost = requireActivity()
+        menuHost.addMenuProvider(this, viewLifecycleOwner, Lifecycle.State.RESUMED)
+
         setupContentRecyclerView()
         setupViews()
         deviceInfo()
@@ -148,6 +159,7 @@ class HomeFragment : Fragment() {
                 val updatedItems = items.map { item ->
                     NewsItem(
                         category = item.category,
+                        author= item.author,
                         description = item.description,
                         image = item.image,
                         link = item.link,
@@ -191,6 +203,30 @@ class HomeFragment : Fragment() {
 
     private fun getTitle() = getString(R.string.title_home)
     private fun getSubtitle() = "TEST"
+
+    override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
+        menuInflater.inflate(R.menu.menu_home, menu)
+        // Do stuff...
+    }
+
+
+    override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
+        return when (menuItem.itemId) {
+            R.id.action_about -> {
+                findNavController().navigate(
+                    R.id.action_navigation_home_to_aboutFragment, null
+                )
+                true
+            }
+            R.id.action_settings -> {
+                findNavController().navigate(
+                    R.id.navigation_dcenter, null
+                )
+                true
+            }
+            else -> false
+        }
+    }
 
     override fun onDestroyView() {
         super.onDestroyView()

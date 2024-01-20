@@ -1,0 +1,28 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="0dp"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_weight="1"
+    android:orientation="vertical"
+    android:gravity="center">
+
+    <ImageView
+        android:id="@+id/iconImageView"
+        android:layout_width="28dp"
+        android:layout_height="28dp"
+        android:src="@drawable/ic_launcher_foreground"
+        app:iconTint="?attr/colorOnSurface"
+        android:contentDescription="@null"
+        android:layout_gravity="center"/>
+
+    <TextView
+        android:id="@+id/labelTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="@dimen/l_25"
+        android:gravity="center"
+        android:text="Link Label"
+        android:textColor="?attr/colorOnSurface"
+        android:textAppearance="@style/AppearanceFoundation.Caption" />
+
+</LinearLayout>
