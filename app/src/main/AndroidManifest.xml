@@ -46,9 +46,14 @@
         <activity
             android:name=".MainActivity"
             android:exported="true"
-            android:launchMode="singleTop"
-            >
+            android:launchMode="singleTop" >
         </activity>
+        <activity
+        android:name=".ui.activity.SettingsActivity"
+        android:exported="true"
+        android:launchMode="singleTop" >
+    </activity>
+
         <activity
             android:name=".ui.activity.IntroActivity"
             android:exported="true">

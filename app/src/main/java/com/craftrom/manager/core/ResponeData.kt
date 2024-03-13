@@ -39,3 +39,5 @@ data class Link(
     val url: String
 )
 
+data class FileInfo(val name: String, val size: String, val lastUpdated: String, val downloadLink: String)
+

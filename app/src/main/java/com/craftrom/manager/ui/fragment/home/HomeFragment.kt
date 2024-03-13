@@ -220,7 +220,7 @@ class HomeFragment : Fragment(), MenuProvider {
             }
             R.id.action_settings -> {
                 findNavController().navigate(
-                    R.id.navigation_dcenter, null
+                    R.id.action_navigation_home_to_settingsActivity, null
                 )
                 true
             }

@@ -24,6 +24,13 @@
             app:exitAnim="@anim/fragment_exit"
             app:popEnterAnim="@anim/fragment_enter_pop"
             app:popExitAnim="@anim/fragment_exit_pop"/>
+        <action
+            android:id="@+id/action_navigation_home_to_settingsActivity"
+            app:destination="@id/navigation_settings"
+            app:enterAnim="@anim/fragment_enter"
+            app:exitAnim="@anim/fragment_exit"
+            app:popEnterAnim="@anim/fragment_enter_pop"
+            app:popExitAnim="@anim/fragment_exit_pop"/>
     </fragment>
 
     <fragment
@@ -48,4 +55,9 @@
         android:name="com.craftrom.manager.ui.fragment.about.AboutFragment"
         android:label="@string/title_about"
         tools:layout="@layout/fragment_about"/>
+    <activity
+        android:id="@+id/navigation_settings"
+        android:name="com.craftrom.manager.ui.activity.SettingsActivity"
+        android:label="@string/settings"
+        tools:layout="@layout/settings_activity" />
 </navigation>
