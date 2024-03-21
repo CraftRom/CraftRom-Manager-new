@@ -4,8 +4,25 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingTop="@dimen/l_50"
-    android:paddingBottom="@dimen/l_50">
+    android:clipToPadding="false"
+    android:fillViewport="true"
+    >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:paddingTop="@dimen/l_50"
+        android:paddingBottom="@dimen/l_50">
+
+    <include
+        android:id="@+id/rom_info"
+        layout="@layout/include_rom_info"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/l1"
+        android:layout_marginEnd="@dimen/l1"
+        app:layout_constraintTop_toBottomOf="@+id/rom_info" />
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/files_card"
@@ -14,7 +31,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginStart="@dimen/l_75"
-
+        android:layout_marginTop="@dimen/l_50"
         android:layout_marginBottom="56dp"
         android:layout_marginEnd="@dimen/l_75"
         app:cardBackgroundColor="@color/color_card_background_color_selector"
@@ -36,6 +53,6 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </com.google.android.material.card.MaterialCardView>
-
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

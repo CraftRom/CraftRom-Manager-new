@@ -73,6 +73,15 @@
     <string name="home_encryption_title">Encrypted Storage</string>
     <string name="home_security_providers_title">Security providers</string>
 
+    <string name="rom_name" translatable="false">Craft Rom OS</string>
+    <string name="rom_codename_title">Device</string>
+    <string name="rom_codename_title_info">%s (Family %s)</string>
+    <string name="rom_version">Version</string>
+    <string name="rom_version_info">%s (Android %s)</string>
+    <string name="rom_build_date">Build date</string>
+    <string name="rom_maintainer">Maintainer</string>
+
+
     <!-- Jitter -->
     <string name="jitter" translatable="false">Jitter</string>
     <string name="jitter_name">Identifying Jitter</string>
@@ -103,6 +112,7 @@
     <string name="download">Download</string>
     <string name="donate">Donate</string>
     <string name="donate_zsu">Support UAF</string>
+    <string name="changelog">Changelog</string>
 
 
     <!--Toasts, Dialogs-->

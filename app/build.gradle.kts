@@ -83,13 +83,13 @@ dependencies {
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
-    androidTestImplementation(platform("androidx.compose:compose-bom:2023.10.01"))
+    androidTestImplementation(platform("androidx.compose:compose-bom:2024.02.02"))
     androidTestImplementation("androidx.compose.ui:ui-test-junit4")
     debugImplementation("androidx.compose.ui:ui-tooling")
     debugImplementation("androidx.compose.ui:ui-test-manifest:1.6.3")
     implementation ("javax.inject:javax.inject:1")
     implementation("androidx.activity:activity-compose:1.8.2")
-    implementation(platform("androidx.compose:compose-bom:2023.10.01"))
+    implementation(platform("androidx.compose:compose-bom:2024.02.02"))
     implementation("androidx.compose.ui:ui")
     implementation("androidx.compose.ui:ui-graphics")
     implementation("androidx.compose.ui:ui-tooling-preview")
@@ -99,7 +99,7 @@ dependencies {
 
     // Picasso
     implementation("com.squareup.picasso:picasso:2.71828")
-    implementation("io.coil-kt:coil-compose:2.5.0")
+    implementation("io.coil-kt:coil-compose:2.6.0")
 
     // Retrofit
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
@@ -109,7 +109,9 @@ dependencies {
     implementation ("androidx.glance:glance:1.0.0")
     implementation ("androidx.glance:glance-appwidget:1.0.0")
 
-    implementation("org.commonmark:commonmark:0.21.0")
+    implementation("org.commonmark:commonmark:0.22.0")
 
-    implementation("org.jsoup:jsoup:1.14.2")
+    implementation("org.jsoup:jsoup:1.17.2")
+    implementation("com.squareup.okhttp3:logging-interceptor:5.0.0-alpha.8")
+    implementation("org.commonjava.googlecode.markdown4j:markdown4j:2.2-cj-1.0")
 }

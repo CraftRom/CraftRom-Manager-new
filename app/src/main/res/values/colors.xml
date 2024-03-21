@@ -8,6 +8,8 @@
     <color name="colorNav">@color/blue</color>
     <color name="colorOnSurface_hard">#444444</color>
 
+    <color name="bghtml">#EEEEEE</color>
+
     <!-- Themes -->
     <color name="blue">#2196f3</color>
     <color name="blueTransparent50">#802196F3</color>
@@ -21,7 +23,7 @@
     <color name="blackTransparent36">#5C212121</color>
 
     <!-- Divider -->
-    <color name="divider">#888</color>
+    <color name="divider">#CAC4D0</color>
     <color name="dividerVariant">?colorPrimaryVariant</color>
 
     <color name="whiteTransparent12">#1FFFFFFF</color>

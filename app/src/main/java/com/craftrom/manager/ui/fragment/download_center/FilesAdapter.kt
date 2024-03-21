@@ -75,8 +75,19 @@ class FilesAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
             // Зміна колору фону роздільника
             itemView.setBackgroundColor(ContextCompat.getColor(itemView.context, R.color.divider))
 
+            // Отримання LayoutParams
+            val params = itemView.layoutParams as ViewGroup.MarginLayoutParams
+
+            // Задання значень для marginStart та marginEnd
+            val margin = itemView.context.resources.getDimensionPixelSize(R.dimen.l1)
+            params.marginStart = margin
+            params.marginEnd = margin
+
+            // Встановлення оновлених LayoutParams назад для itemView
+            itemView.layoutParams = params
         }
     }
+
 
 }
 

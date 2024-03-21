@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/rom_all"
+        style="@style/WidgetFoundation.Card"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:focusable="false"
+        android:clickable="true">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingStart="@dimen/l1"
+            android:paddingTop="@dimen/l_50"
+            android:paddingEnd="@dimen/l1"
+            android:paddingBottom="@dimen/l_50"
+            tools:layout_gravity="center">
+
+            <ImageView
+                android:id="@+id/rom_icon"
+                style="@style/WidgetFoundation.Icon.Primary"
+                android:padding="@dimen/l_25"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_logo_splash"
+                android:contentDescription="@string/todo" />
+
+            <TextView
+                android:id="@+id/rom_title"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/l1"
+                android:textAppearance="@style/AppearanceFoundation.Title"
+                android:textColor="?colorPrimary"
+                android:maxLines="1"
+                android:ellipsize="end"
+                android:text="@string/rom_name"
+                app:layout_constraintBottom_toBottomOf="@+id/rom_icon"
+                app:layout_constraintStart_toEndOf="@+id/rom_icon"
+                app:layout_constraintTop_toTopOf="@+id/rom_icon" />
+
+            <androidx.constraintlayout.widget.Barrier
+                android:id="@+id/home_device_title_barrier"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:barrierDirection="bottom"
+                tools:constraint_referenced_ids="rom_icon,rom_title" />
+
+            <HorizontalScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fadingEdgeLength="@dimen/l1"
+                android:requiresFadingEdge="horizontal"
+                android:scrollbars="none"
+                app:layout_constraintTop_toBottomOf="@+id/rom_icon">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                        <LinearLayout
+                            android:id="@+id/rom_device_codename"
+                            style="@style/W.Home.Item.Top"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent">
+
+                            <TextView
+                                style="@style/W.Home.ItemContent"
+                                android:text="@string/rom_codename_title" />
+
+                            <TextView
+                                android:id="@+id/rom_device_codename_info"
+                                style="@style/W.Home.ItemContent.Right"
+                                tools:text="@string/rom_codename_title_info" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/rom_version"
+                            style="@style/W.Home.Item"
+                            app:layout_constraintStart_toStartOf="@+id/rom_device_codename"
+                            app:layout_constraintTop_toBottomOf="@+id/rom_device_codename">
+
+                            <TextView
+                                style="@style/W.Home.ItemContent"
+                                android:text="@string/rom_version" />
+
+                            <TextView
+                                android:id="@+id/rom_version_info"
+                                style="@style/W.Home.ItemContent.Right"
+                                tools:text="@string/rom_version_info" />
+
+                        </LinearLayout>
+                        <LinearLayout
+                            android:id="@+id/rom_build_date"
+                            style="@style/W.Home.Item"
+                            app:layout_constraintStart_toStartOf="@+id/rom_device_codename"
+                            app:layout_constraintTop_toBottomOf="@+id/rom_version">
+
+                            <TextView
+                                android:id="@+id/rom_build_date_title"
+                                style="@style/W.Home.ItemContent"
+                                android:text="@string/rom_build_date" />
+
+                            <TextView
+                                android:id="@+id/rom_build_date_info"
+                                style="@style/W.Home.ItemContent.Right"
+                                tools:text="onclite" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/home_security"
+                            style="@style/W.Home.Item"
+                            app:layout_constraintStart_toStartOf="@+id/rom_version"
+                            app:layout_constraintTop_toBottomOf="@+id/rom_build_date">
+
+                            <TextView
+                                style="@style/W.Home.ItemContent"
+                                android:text="@string/home_security_title" />
+
+                            <TextView
+                                android:id="@+id/home_security_info"
+                                style="@style/W.Home.ItemContent.Right"
+                                tools:text="onclite" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/rom_maintainer"
+                            style="@style/W.Home.Item.Bottom"
+                            app:layout_constraintStart_toStartOf="@+id/rom_build_date"
+                            app:layout_constraintTop_toBottomOf="@+id/home_security">
+
+                            <TextView
+                                style="@style/W.Home.ItemContent"
+                                android:text="@string/rom_maintainer" />
+
+                            <TextView
+                                android:id="@+id/rom_maintainer_info"
+                                style="@style/W.Home.ItemContent.Right"
+                                tools:text="SDM632" />
+
+                        </LinearLayout>
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                </LinearLayout>
+
+            </HorizontalScrollView>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+</layout>

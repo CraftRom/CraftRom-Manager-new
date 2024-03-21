@@ -238,6 +238,12 @@ open class DeviceSystemInfo {
             return if (!exodusMaintainer.isNullOrEmpty()) exodusMaintainer else errorResult()
         }
 
+        fun craftBuildDate(): String{
+
+            val buildDate = getSystemProperty("org.craftrom.build_date")
+            return if (!buildDate.isNullOrEmpty()) buildDate else errorResult()
+        }
+
         fun chidoriVersion(): String = kernelVersion().substring(
             kernelVersion().lastIndexOf(".")).substring(1, 4)
 
