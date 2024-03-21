@@ -27,7 +27,7 @@ object ToolbarTitleUtils {
 
     private fun animateTextPrinting(textView: TextView, text: String) {
         val textLength = text.length
-        val delayMillis: Long = 100 // Затримка між відображенням кожного символу
+        val delayMillis: Long = 50 // Затримка між відображенням кожного символу
 
         val handler = Handler(Looper.getMainLooper())
         var currentLength = 0
@@ -50,7 +50,7 @@ object ToolbarTitleUtils {
 
     private fun animateTextView(textView: TextView) {
         val anim = AlphaAnimation(0.0f, 1.0f)
-        anim.duration = 300 // Тривалість анімації у мілісекундах
+        anim.duration = 280 // Тривалість анімації у мілісекундах
         textView.startAnimation(anim)
     }
 }
