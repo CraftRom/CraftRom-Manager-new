@@ -9,11 +9,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.craftrom.manager.MainActivity
 import com.craftrom.manager.R
 import com.craftrom.manager.core.Link
+import com.craftrom.manager.core.utils.ToolbarTitleUtils.setToolbarText
 import com.craftrom.manager.databinding.FragmentAboutBinding
 
 class AboutFragment : Fragment() {
@@ -21,20 +23,12 @@ class AboutFragment : Fragment() {
     private var _binding: FragmentAboutBinding? = null
     private val binding get() = _binding!!
 
-    override fun onResume() {
-        super.onResume()
-        val mainActivity = requireActivity() as MainActivity
-        mainActivity.setToolbarText(getTitle(), getSubtitle())
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentAboutBinding.inflate(inflater, container, false)
-        val mainActivity = requireActivity() as MainActivity
-        mainActivity.setToolbarText(getTitle(), getSubtitle())
 
         versionApp = binding.version
 
@@ -79,6 +73,13 @@ class AboutFragment : Fragment() {
 
 
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        // Виклик функції setToolbarText для задання тексту в панелі інструментів
+        setToolbarText(requireActivity() as AppCompatActivity, getTitle(), getSubtitle())
     }
 
     private val links = listOf(

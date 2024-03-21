@@ -13,9 +13,11 @@ import android.view.ViewGroup
 import android.view.Window
 import android.view.Window.OnFrameMetricsAvailableListener
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.craftrom.manager.MainActivity
 import com.craftrom.manager.R
+import com.craftrom.manager.core.utils.ToolbarTitleUtils
 import com.craftrom.manager.core.utils.jitter.AnimatedBackgroundDrawable
 import com.craftrom.manager.core.utils.jitter.PointGraphView
 import com.craftrom.manager.databinding.FragmentJitterBinding
@@ -126,17 +128,6 @@ class JitterFragment : Fragment() {
             }
         }
 
-    override fun onStart() {
-        super.onStart()
-        val mainActivity = requireActivity() as MainActivity
-        mainActivity.setToolbarText(getTitle(), getSubtitle())
-    }
-    override fun onResume() {
-        super.onResume()
-        val mainActivity = requireActivity() as MainActivity
-        mainActivity.setToolbarText(getTitle(), getSubtitle())
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -162,6 +153,17 @@ class JitterFragment : Fragment() {
         renderThreadTimeReport?.text = ",.!()[]{};"
         requireActivity().window.addOnFrameMetricsAvailableListener(frameMetricsListener, frameMetricsHandler)
         return root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        // Виклик функції setToolbarText для задання тексту в панелі інструментів
+        ToolbarTitleUtils.setToolbarText(
+            requireActivity() as AppCompatActivity,
+            getTitle(),
+            getSubtitle()
+        )
     }
 
     private fun getTitle() = getString(R.string.title_jitter)

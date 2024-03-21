@@ -7,12 +7,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.craftrom.manager.MainActivity
 import com.craftrom.manager.R
 import com.craftrom.manager.core.time.CoroutineTimer
 import com.craftrom.manager.core.utils.Constants
 import com.craftrom.manager.core.utils.Constants.INTERVAL_1_FPS
+import com.craftrom.manager.core.utils.ToolbarTitleUtils
 import com.craftrom.manager.core.utils.hwinfo.BatteryInfo
 import com.craftrom.manager.core.utils.hwinfo.CPUInfo
 import com.craftrom.manager.core.utils.hwinfo.DeviceSystemInfo
@@ -34,11 +36,6 @@ class DeviceFragment : Fragment() {
         super.onStart()
         intervalometer.interval(INTERVAL_1_FPS)
     }
-    override fun onResume() {
-        super.onResume()
-        val mainActivity = requireActivity() as MainActivity
-        mainActivity.setToolbarText(getTitle(), getSubtitle())
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -46,19 +43,24 @@ class DeviceFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentDeviceBinding.inflate(inflater, container, false)
-        val mainActivity = requireActivity() as MainActivity
-        mainActivity.setToolbarText(getTitle(), getSubtitle())
+
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        ToolbarTitleUtils.setToolbarText(
+            requireActivity() as AppCompatActivity,
+            getTitle(),
+            getSubtitle()
+        )
         deviceInfo()
         display()
         memory()
         socInfo()
         batteryInfo()
     }
+
     @SuppressLint("SetTextI18n")
     private fun deviceInfo() {
         val gfs: TextView = binding.homeDevWrapper.homeGfsInfo

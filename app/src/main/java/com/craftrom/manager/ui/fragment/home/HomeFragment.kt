@@ -13,6 +13,7 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
 import androidx.core.view.MenuHost
 import androidx.core.view.MenuProvider
@@ -30,6 +31,8 @@ import com.craftrom.manager.core.services.RetrofitInstance.setupRetrofitCall
 import com.craftrom.manager.core.utils.Constants
 import com.craftrom.manager.core.utils.Constants.DEFAULT_NEWS_SOURCE
 import com.craftrom.manager.core.utils.Constants.TAG
+import com.craftrom.manager.core.utils.ToolbarTitleProvider
+import com.craftrom.manager.core.utils.ToolbarTitleUtils
 import com.craftrom.manager.core.utils.hwinfo.DeviceSystemInfo
 import com.craftrom.manager.databinding.FragmentHomeBinding
 import kotlinx.coroutines.Dispatchers
@@ -38,7 +41,7 @@ import kotlinx.coroutines.launch
 import retrofit2.Call
 import java.util.Locale
 
-class HomeFragment : Fragment(), MenuProvider {
+class HomeFragment : Fragment(), MenuProvider, ToolbarTitleProvider {
 
     private var _binding: FragmentHomeBinding? = null
     private var job: Job? = null // Для відміни корутини
@@ -49,12 +52,6 @@ class HomeFragment : Fragment(), MenuProvider {
     // onDestroyView.
     private val binding get() = _binding!!
 
-    override fun onResume() {
-        super.onResume()
-        val mainActivity = requireActivity() as MainActivity
-        mainActivity.setToolbarText(getTitle(), getSubtitle())
-        updateNewsData()
-    }
     override fun onCreateView(
             inflater: LayoutInflater,
             container: ViewGroup?,
@@ -69,6 +66,17 @@ class HomeFragment : Fragment(), MenuProvider {
         setupViews()
         deviceInfo()
         return root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        // Виклик функції setToolbarText для задання тексту в панелі інструментів
+        ToolbarTitleUtils.setToolbarText(
+            requireActivity() as AppCompatActivity,
+            getTitle(),
+            getSubtitle()
+        )
     }
 
     private fun deviceInfo() {
@@ -200,10 +208,12 @@ class HomeFragment : Fragment(), MenuProvider {
         }
     }
 
-
-    private fun getTitle() = getString(R.string.title_home)
-    private fun getSubtitle() = "TEST"
-
+    override fun getTitle(): String {
+        return getString(R.string.title_home)// Повертаємо потрібний заголовок
+    }
+    override fun getSubtitle(): String {
+        return "Welcome to our app" // Повертаємо потрібний підзаголовок
+    }
     override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
         menuInflater.inflate(R.menu.menu_home, menu)
         // Do stuff...

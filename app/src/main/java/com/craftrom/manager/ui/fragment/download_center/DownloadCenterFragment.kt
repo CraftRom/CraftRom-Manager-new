@@ -17,6 +17,7 @@ import android.webkit.WebView
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.text.HtmlCompat
 import androidx.core.view.MenuHost
 import androidx.core.view.MenuProvider
@@ -27,6 +28,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.craftrom.manager.MainActivity
 import com.craftrom.manager.R
 import com.craftrom.manager.core.FileInfo
+import com.craftrom.manager.core.utils.ToolbarTitleUtils
 import com.craftrom.manager.core.utils.hwinfo.DeviceSystemInfo
 import com.craftrom.manager.databinding.FragmentDownloadCenterBinding
 import com.google.android.material.bottomsheet.BottomSheetDialog
@@ -51,16 +53,6 @@ class DownloadCenterFragment : Fragment(), MenuProvider {
 
 
     private var isChangelogLoading = false
-
-    override fun onStart() {
-        super.onStart()
-        setUpToolbar()
-    }
-
-    override fun onResume() {
-        super.onResume()
-        setUpToolbar()
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -108,6 +100,17 @@ class DownloadCenterFragment : Fragment(), MenuProvider {
         return root
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        // Виклик функції setToolbarText для задання тексту в панелі інструментів
+        ToolbarTitleUtils.setToolbarText(
+            requireActivity() as AppCompatActivity,
+            getTitle(),
+            getSubtitle()
+        )
+    }
+
     private fun romInfo() {
         val originalDateFormat = SimpleDateFormat("yyyyMMdd-HHmm", Locale.getDefault())
         val displayDateFormat = SimpleDateFormat("MM/dd/yyyy", Locale.getDefault())
@@ -143,11 +146,6 @@ class DownloadCenterFragment : Fragment(), MenuProvider {
             files.add(FileInfo(name, size, lastUpdated, downloadLink))
         }
         return files
-    }
-
-    private fun setUpToolbar() {
-        val mainActivity = requireActivity() as MainActivity
-        mainActivity.setToolbarText(getTitle(), getSubtitle())
     }
 
     private fun getTitle() = getString(R.string.title_dcenter)
