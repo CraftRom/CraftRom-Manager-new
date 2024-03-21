@@ -5,12 +5,13 @@ import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isGone
 import androidx.core.view.isVisible
+import androidx.navigation.NavDestination
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
-import com.craftrom.manager.core.utils.ToolbarTitleProvider
 import com.craftrom.manager.core.utils.ToolbarTitleUtils.setToolbarText
+import com.craftrom.manager.core.utils.interfaces.ToolbarTitleProvider
 import com.craftrom.manager.databinding.ActivityMainBinding
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
@@ -47,25 +48,22 @@ class MainActivity : AppCompatActivity() {
             setDisplayHomeAsUpEnabled(!isRootFragment)
             requestNavigationHidden(this, !isRootFragment)
 
+            binding.appBarMain.toolbar.post {
+                updateToolbarText(navController.currentDestination)
+            }
         }
 
-        binding.appBarMain.toolbar.post {
-            updateToolbarText()
+    }
+
+    private fun updateToolbarText(destination: NavDestination?) {
+        val fragments = supportFragmentManager.findFragmentById(R.id.nav_host_fragment_activity_main)?.childFragmentManager?.fragments
+        val currentFragment = fragments?.firstOrNull()
+        if (currentFragment is ToolbarTitleProvider) {
+            setToolbarText(this, currentFragment.getTitle(), currentFragment.getSubtitle())
+        } else {
+            setToolbarText(this, destination!!.label.toString(), null)
         }
     }
-
-    override fun onStart() {
-        super.onStart()
-        updateToolbarText()
-    }
-
-    private fun updateToolbarText() {
-        val defaultFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment_activity_main)?.childFragmentManager?.fragments?.get(0)
-        if (defaultFragment is ToolbarTitleProvider) {
-            setToolbarText(this, defaultFragment.getTitle(), defaultFragment.getSubtitle())
-        }
-    }
-
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             android.R.id.home -> onBackPressed()
