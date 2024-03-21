@@ -13,17 +13,15 @@ import android.view.ViewGroup
 import android.view.Window
 import android.view.Window.OnFrameMetricsAvailableListener
 import android.widget.TextView
-import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import com.craftrom.manager.MainActivity
 import com.craftrom.manager.R
-import com.craftrom.manager.core.utils.ToolbarTitleUtils
+import com.craftrom.manager.core.utils.interfaces.ToolbarTitleProvider
 import com.craftrom.manager.core.utils.jitter.AnimatedBackgroundDrawable
 import com.craftrom.manager.core.utils.jitter.PointGraphView
 import com.craftrom.manager.databinding.FragmentJitterBinding
 import kotlin.math.abs
 
-class JitterFragment : Fragment() {
+class JitterFragment : Fragment(), ToolbarTitleProvider {
 
     private var jitterReport: TextView? = null
     private var uiFrameTimeReport: TextView? = null
@@ -155,20 +153,13 @@ class JitterFragment : Fragment() {
         return root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-        // Виклик функції setToolbarText для задання тексту в панелі інструментів
-        ToolbarTitleUtils.setToolbarText(
-            requireActivity() as AppCompatActivity,
-            getTitle(),
-            getSubtitle()
-        )
+    override fun getTitle(): String {
+        return getString(R.string.title_jitter)
     }
 
-    private fun getTitle() = getString(R.string.title_jitter)
-    private fun getSubtitle() = getString(R.string.subtitle_jitter)
-
+    override fun getSubtitle(): String {
+        return getString(R.string.subtitle_jitter)
+    }
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null

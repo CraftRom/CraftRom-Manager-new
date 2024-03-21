@@ -13,7 +13,6 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
 import androidx.core.view.MenuHost
 import androidx.core.view.MenuProvider
@@ -30,10 +29,8 @@ import com.craftrom.manager.core.rss.RssFeed
 import com.craftrom.manager.core.services.RetrofitInstance.setupRetrofitCall
 import com.craftrom.manager.core.utils.Constants
 import com.craftrom.manager.core.utils.Constants.DEFAULT_NEWS_SOURCE
-import com.craftrom.manager.core.utils.Constants.TAG
-import com.craftrom.manager.core.utils.ToolbarTitleProvider
-import com.craftrom.manager.core.utils.ToolbarTitleUtils
 import com.craftrom.manager.core.utils.hwinfo.DeviceSystemInfo
+import com.craftrom.manager.core.utils.interfaces.ToolbarTitleProvider
 import com.craftrom.manager.databinding.FragmentHomeBinding
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -66,17 +63,6 @@ class HomeFragment : Fragment(), MenuProvider, ToolbarTitleProvider {
         setupViews()
         deviceInfo()
         return root
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-        // Виклик функції setToolbarText для задання тексту в панелі інструментів
-        ToolbarTitleUtils.setToolbarText(
-            requireActivity() as AppCompatActivity,
-            getTitle(),
-            getSubtitle()
-        )
     }
 
     private fun deviceInfo() {

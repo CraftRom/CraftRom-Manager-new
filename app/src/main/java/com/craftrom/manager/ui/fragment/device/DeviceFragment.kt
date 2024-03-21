@@ -7,14 +7,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import com.craftrom.manager.MainActivity
 import com.craftrom.manager.R
 import com.craftrom.manager.core.time.CoroutineTimer
 import com.craftrom.manager.core.utils.Constants
 import com.craftrom.manager.core.utils.Constants.INTERVAL_1_FPS
-import com.craftrom.manager.core.utils.ToolbarTitleUtils
+import com.craftrom.manager.core.utils.interfaces.ToolbarTitleProvider
 import com.craftrom.manager.core.utils.hwinfo.BatteryInfo
 import com.craftrom.manager.core.utils.hwinfo.CPUInfo
 import com.craftrom.manager.core.utils.hwinfo.DeviceSystemInfo
@@ -22,7 +20,7 @@ import com.craftrom.manager.core.utils.hwinfo.DisplayInfo
 import com.craftrom.manager.core.utils.hwinfo.MemoryInfo
 import com.craftrom.manager.databinding.FragmentDeviceBinding
 
-class DeviceFragment : Fragment() {
+class DeviceFragment : Fragment(), ToolbarTitleProvider {
     private var _binding: FragmentDeviceBinding? = null
     private val binding get() = _binding!!
 
@@ -49,11 +47,6 @@ class DeviceFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        ToolbarTitleUtils.setToolbarText(
-            requireActivity() as AppCompatActivity,
-            getTitle(),
-            getSubtitle()
-        )
         deviceInfo()
         display()
         memory()
@@ -171,8 +164,13 @@ class DeviceFragment : Fragment() {
         sysUptime.text = BatteryInfo.getSystemUptime()
     }
 
-    private fun getTitle() = getString(R.string.title_device)
-    private fun getSubtitle() = "DEV"
+    override fun getTitle(): String {
+        return getString(R.string.title_device)
+    }
+
+    override fun getSubtitle(): String {
+        return "DEV"
+    }
 
     override fun onDestroyView() {
         super.onDestroyView()

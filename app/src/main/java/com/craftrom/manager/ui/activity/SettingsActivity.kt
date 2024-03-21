@@ -29,7 +29,6 @@ import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import androidx.preference.TwoStatePreference
 import com.craftrom.manager.R
-import com.craftrom.manager.core.utils.ToolbarTitleProvider
 import com.craftrom.manager.databinding.SettingsActivityBinding
 
 

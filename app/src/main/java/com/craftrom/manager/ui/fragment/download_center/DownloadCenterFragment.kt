@@ -2,11 +2,8 @@ package com.craftrom.manager.ui.fragment.download_center
 
 import android.content.Context
 import android.net.ConnectivityManager
-import android.net.Uri
 import android.os.Build
 import android.os.Bundle
-import android.text.Spanned
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuInflater
@@ -18,18 +15,16 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.text.HtmlCompat
 import androidx.core.view.MenuHost
 import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.craftrom.manager.MainActivity
 import com.craftrom.manager.R
 import com.craftrom.manager.core.FileInfo
 import com.craftrom.manager.core.utils.ToolbarTitleUtils
 import com.craftrom.manager.core.utils.hwinfo.DeviceSystemInfo
+import com.craftrom.manager.core.utils.interfaces.ToolbarTitleProvider
 import com.craftrom.manager.databinding.FragmentDownloadCenterBinding
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import kotlinx.coroutines.DelicateCoroutinesApi
@@ -45,7 +40,7 @@ import java.io.IOException
 import java.text.SimpleDateFormat
 import java.util.*
 
-class DownloadCenterFragment : Fragment(), MenuProvider {
+class DownloadCenterFragment : Fragment(), MenuProvider, ToolbarTitleProvider {
 
     private lateinit var filesAdapter: FilesAdapter
     private var _binding: FragmentDownloadCenterBinding? = null
@@ -147,9 +142,13 @@ class DownloadCenterFragment : Fragment(), MenuProvider {
         }
         return files
     }
+    override fun getTitle(): String {
+        return getString(R.string.title_dcenter)
+    }
 
-    private fun getTitle() = getString(R.string.title_dcenter)
-    private fun getSubtitle() = getString(R.string.subtitle_dcenter)
+    override fun getSubtitle(): String {
+        return getString(R.string.subtitle_dcenter)
+    }
 
     override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
         menuInflater.inflate(R.menu.menu_rom, menu)
