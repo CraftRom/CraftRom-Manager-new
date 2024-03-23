@@ -22,14 +22,18 @@ import androidx.lifecycle.Lifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.craftrom.manager.R
 import com.craftrom.manager.core.FileInfo
+import com.craftrom.manager.core.utils.Constants.isInternetAvailable
+import com.craftrom.manager.core.utils.RecyclerViewUtils
 import com.craftrom.manager.core.utils.ToolbarTitleUtils
 import com.craftrom.manager.core.utils.hwinfo.DeviceSystemInfo
 import com.craftrom.manager.core.utils.interfaces.ToolbarTitleProvider
 import com.craftrom.manager.databinding.FragmentDownloadCenterBinding
 import com.google.android.material.bottomsheet.BottomSheetDialog
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import okhttp3.OkHttpClient
@@ -38,7 +42,8 @@ import org.jsoup.Jsoup
 import org.markdown4j.Markdown4jProcessor
 import java.io.IOException
 import java.text.SimpleDateFormat
-import java.util.*
+import java.util.Date
+import java.util.Locale
 
 class DownloadCenterFragment : Fragment(), MenuProvider, ToolbarTitleProvider {
 
@@ -46,7 +51,7 @@ class DownloadCenterFragment : Fragment(), MenuProvider, ToolbarTitleProvider {
     private var _binding: FragmentDownloadCenterBinding? = null
     private val binding get() = _binding!!
 
-
+    private var downloadJob: Job? = null
     private var isChangelogLoading = false
 
     override fun onCreateView(
@@ -62,6 +67,7 @@ class DownloadCenterFragment : Fragment(), MenuProvider, ToolbarTitleProvider {
         // Ініціалізація RecyclerView та адаптера
         filesAdapter = FilesAdapter()
         val recyclerView = binding.recyclerFileList
+        val empty = binding.emptyHelp
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
         recyclerView.adapter = filesAdapter
         // Отримання інформації про пристрій та версію CraftRom
@@ -69,28 +75,29 @@ class DownloadCenterFragment : Fragment(), MenuProvider, ToolbarTitleProvider {
         val craftromVersion = DeviceSystemInfo.craftromVersion()
         val url = "https://sourceforge.net/projects/craftrom/files/$deviceInfo/$craftromVersion/"
 
+        RecyclerViewUtils.checkEmpty(recyclerView, empty, getString(R.string.empty_file_list))
+
         // Перевірка наявності Інтернет-підключення
-        if (isNetworkAvailable()) {
+        if (isInternetAvailable(requireContext())) {
             // Отримання HTML-коду сторінки та відображення інформації про файли в RecyclerView
-            Thread {
+            downloadJob = CoroutineScope(Dispatchers.IO).launch {
                 try {
                     val document = Jsoup.connect(url).get()
                     val filesList = extractFilesList(document)
-                    requireActivity().runOnUiThread {
+                    withContext(Dispatchers.Main) {
                         filesAdapter.setItems(filesList)
+                        RecyclerViewUtils.checkEmpty(recyclerView, empty, null)
                     }
                 } catch (e: Exception) {
                     e.printStackTrace()
-                    requireActivity().runOnUiThread {
-                        Toast.makeText(requireContext(), "Помилка завантаження даних", Toast.LENGTH_SHORT).show()
+                    withContext(Dispatchers.Main) {
+                        RecyclerViewUtils.checkEmpty(recyclerView, empty, getString(R.string.failed_to_add_files))
                     }
                 }
-            }.start()
+            }
         } else {
-            // Повідомлення про відсутність Інтернет-підключення
-            Toast.makeText(requireContext(), "Немає підключення до Інтернету", Toast.LENGTH_SHORT).show()
+            RecyclerViewUtils.checkEmpty(recyclerView, empty, getString(R.string.no_internet_connection))
         }
-
         romInfo()
         return root
     }
@@ -118,12 +125,6 @@ class DownloadCenterFragment : Fragment(), MenuProvider, ToolbarTitleProvider {
         binding.romInfo.romBuildDateInfo.text = displayDate
         binding.romInfo.homeSecurityInfo.text = Build.VERSION.SECURITY_PATCH
         binding.romInfo.romMaintainerInfo.text = DeviceSystemInfo.craftMaintainer()
-    }
-
-    private fun isNetworkAvailable(): Boolean {
-        val connectivityManager = requireContext().getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-        val networkInfo = connectivityManager.activeNetworkInfo
-        return networkInfo != null && networkInfo.isConnected
     }
 
     private fun extractFilesList(document: org.jsoup.nodes.Document): List<FileInfo> {
@@ -284,6 +285,7 @@ class DownloadCenterFragment : Fragment(), MenuProvider, ToolbarTitleProvider {
 
     override fun onDestroyView() {
         super.onDestroyView()
+        downloadJob?.cancel()
         _binding = null
     }
 }

@@ -43,6 +43,22 @@
                 android:layout_height="match_parent"
                 android:animateLayoutChanges="true">
 
+                <TextView
+                    android:id="@+id/emptyHelp"
+                    style="@style/AppearanceFoundation.Title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawablePadding="12dp"
+                    android:singleLine="false"
+                    android:textAlignment="center"
+                    android:textColor="?colorDisabledVariant"
+                    android:textSize="16sp"
+                    android:visibility="visible"
+                    app:drawableTopCompat="@drawable/art_empty"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/recyclerViewNews"

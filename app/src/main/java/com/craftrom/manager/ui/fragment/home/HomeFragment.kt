@@ -29,12 +29,16 @@ import com.craftrom.manager.core.rss.RssFeed
 import com.craftrom.manager.core.services.RetrofitInstance.setupRetrofitCall
 import com.craftrom.manager.core.utils.Constants
 import com.craftrom.manager.core.utils.Constants.DEFAULT_NEWS_SOURCE
+import com.craftrom.manager.core.utils.RecyclerViewUtils
 import com.craftrom.manager.core.utils.hwinfo.DeviceSystemInfo
 import com.craftrom.manager.core.utils.interfaces.ToolbarTitleProvider
 import com.craftrom.manager.databinding.FragmentHomeBinding
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import org.jsoup.Jsoup
 import retrofit2.Call
 import java.util.Locale
 
@@ -131,7 +135,13 @@ class HomeFragment : Fragment(), MenuProvider, ToolbarTitleProvider {
         arrayListContent.clear()
         job = viewLifecycleOwner.lifecycleScope.launch(Dispatchers.IO) {
             try {
-                fetchNewsItems()
+                if (Constants.isInternetAvailable(requireContext())) {
+                    RecyclerViewUtils.checkEmpty(binding.recyclerViewNews, binding.emptyHelp, getString(R.string.empty_file_list))
+                    fetchNewsItems()
+                } else {
+                    RecyclerViewUtils.checkEmpty(binding.recyclerViewNews, binding.emptyHelp, getString(R.string.no_internet_connection))
+                }
+
             } catch (e: Exception) {
                 // Обробка помилок отримання новин
                 e.printStackTrace()
@@ -141,7 +151,6 @@ class HomeFragment : Fragment(), MenuProvider, ToolbarTitleProvider {
 
     private fun fetchNewsItems() {
         val call: Call<RssFeed> = setupRetrofitCall(DEFAULT_NEWS_SOURCE, "feed.xml")
-
         try {
             val response = call.execute()
 
@@ -167,15 +176,16 @@ class HomeFragment : Fragment(), MenuProvider, ToolbarTitleProvider {
                     arrayListContent.clear()
                     arrayListContent.addAll(updatedItems)
                     adapterRecyclerViewRssContent.notifyDataSetChanged()
+                    RecyclerViewUtils.checkEmpty(binding.recyclerViewNews, binding.emptyHelp, null)
                 }
             } ?: run {
                 Log.d("RssFeed", "Empty or null response body")
-                showToast("Error fetching news!")
+                RecyclerViewUtils.checkEmpty(binding.recyclerViewNews, binding.emptyHelp, getString(R.string.failed_to_add_files))
             }
 
         } catch (e: Exception) {
             Log.d("RssFeed", "Exception: ${e.message}")
-            showToast("Error fetching news!")
+            RecyclerViewUtils.checkEmpty(binding.recyclerViewNews, binding.emptyHelp, getString(R.string.failed_to_add_files))
         }
     }
 
@@ -227,5 +237,6 @@ class HomeFragment : Fragment(), MenuProvider, ToolbarTitleProvider {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+        job?.cancel()
     }
 }

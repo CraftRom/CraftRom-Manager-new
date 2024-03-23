@@ -114,6 +114,11 @@
     <string name="donate_zsu">Support UAF</string>
     <string name="changelog">Changelog</string>
 
+    <!-- Empty -->
+    <string name="no_internet_connection">No internet connection</string>
+    <string name="empty_file_list">File list is empty</string>
+    <string name="failed_to_add_files">Failed to add files</string>
+
 
     <!--Toasts, Dialogs-->
     <string name="yes">Yes</string>

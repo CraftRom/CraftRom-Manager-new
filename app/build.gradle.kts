@@ -21,7 +21,7 @@ android {
         minSdk = 29
         targetSdk = 34
         versionCode = 1
-        versionName = "alpha 1"
+        versionName = "alpha-2"
         ndk {
             abiFilters += listOf("armeabi-v7a", "arm64-v8a", "x86", "x86_64")
             debugSymbolLevel = "FULL"
@@ -78,7 +78,7 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.7.0")
     implementation("androidx.navigation:navigation-fragment-ktx:2.7.7")
     implementation("androidx.navigation:navigation-ui-ktx:2.7.7")
-    implementation("androidx.compose.ui:ui-unit-android:1.6.3")
+    implementation("androidx.compose.ui:ui-unit-android:1.6.4")
     implementation("androidx.swiperefreshlayout:swiperefreshlayout:1.1.0")
     implementation("androidx.core:core-animation:1.0.0-rc01")
     testImplementation("junit:junit:4.13.2")
@@ -87,7 +87,7 @@ dependencies {
     androidTestImplementation(platform("androidx.compose:compose-bom:2024.02.02"))
     androidTestImplementation("androidx.compose.ui:ui-test-junit4")
     debugImplementation("androidx.compose.ui:ui-tooling")
-    debugImplementation("androidx.compose.ui:ui-test-manifest:1.6.3")
+    debugImplementation("androidx.compose.ui:ui-test-manifest:1.6.4")
     implementation ("javax.inject:javax.inject:1")
     implementation("androidx.activity:activity-compose:1.8.2")
     implementation(platform("androidx.compose:compose-bom:2024.02.02"))
@@ -103,8 +103,8 @@ dependencies {
     implementation("io.coil-kt:coil-compose:2.6.0")
 
     // Retrofit
-    implementation("com.squareup.retrofit2:retrofit:2.9.0")
-    implementation("com.squareup.retrofit2:converter-moshi:2.9.0")
+    implementation("com.squareup.retrofit2:retrofit:2.10.0")
+    implementation("com.squareup.retrofit2:converter-moshi:2.10.0")
     implementation("org.simpleframework:simple-xml:2.7.1")
 
     implementation ("androidx.glance:glance:1.0.0")
@@ -113,6 +113,6 @@ dependencies {
     implementation("org.commonmark:commonmark:0.22.0")
 
     implementation("org.jsoup:jsoup:1.17.2")
-    implementation("com.squareup.okhttp3:logging-interceptor:5.0.0-alpha.8")
-    implementation("org.commonjava.googlecode.markdown4j:markdown4j:2.2-cj-1.0")
+    implementation("com.squareup.okhttp3:logging-interceptor:5.0.0-alpha.12")
+    implementation("org.commonjava.googlecode.markdown4j:markdown4j:2.2-cj-1.1")
 }
