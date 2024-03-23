@@ -3,6 +3,7 @@
     <color name="status_bar">@color/blue</color>
     <color name="colorFalse">#E53935</color>
     <color name="colorTrue">#4CAF50</color>
+    <color name="colorWarning">#ff8000</color>
     <color name="google_gray">#B35F6368</color>
     <color name="colorToolbar">#F9F9F9</color>
     <color name="colorNav">@color/blue</color>

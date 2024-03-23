@@ -137,6 +137,10 @@
         <item name="tint">@color/color_on_primary_transient</item>
     </style>
 
+    <style name="WidgetFoundation.Icon.Warning">
+        <item name="tint">@color/color_warning_transient</item>
+    </style>
+
     <style name="WidgetFoundation.Checkbox" parent="Widget.AppCompat.CompoundButton.CheckBox">
         <item name="android:paddingStart">@dimen/l1</item>
         <item name="android:paddingEnd">@dimen/l1</item>

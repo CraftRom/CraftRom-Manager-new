@@ -66,6 +66,7 @@ class DownloadCenterFragment : Fragment(), MenuProvider, ToolbarTitleProvider {
 
         // Ініціалізація RecyclerView та адаптера
         filesAdapter = FilesAdapter()
+        val cardFiles = binding.filesCard
         val recyclerView = binding.recyclerFileList
         val empty = binding.emptyHelp
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
@@ -77,27 +78,37 @@ class DownloadCenterFragment : Fragment(), MenuProvider, ToolbarTitleProvider {
 
         RecyclerViewUtils.checkEmpty(recyclerView, empty, getString(R.string.empty_file_list))
 
-        // Перевірка наявності Інтернет-підключення
-        if (isInternetAvailable(requireContext())) {
-            // Отримання HTML-коду сторінки та відображення інформації про файли в RecyclerView
-            downloadJob = CoroutineScope(Dispatchers.IO).launch {
-                try {
-                    val document = Jsoup.connect(url).get()
-                    val filesList = extractFilesList(document)
-                    withContext(Dispatchers.Main) {
-                        filesAdapter.setItems(filesList)
-                        RecyclerViewUtils.checkEmpty(recyclerView, empty, null)
-                    }
-                } catch (e: Exception) {
-                    e.printStackTrace()
-                    withContext(Dispatchers.Main) {
-                        RecyclerViewUtils.checkEmpty(recyclerView, empty, getString(R.string.failed_to_add_files))
+        if (DeviceSystemInfo.isAnyCraftromProperty()) {
+            cardFiles.visibility = View.VISIBLE // Показуємо карточку файлів
+            binding.romInfo.root.visibility = View.VISIBLE
+            binding.romInfoShort.root.visibility = View.GONE
+            // Перевірка наявності Інтернет-підключення
+            if (isInternetAvailable(requireContext())) {
+                // Отримання HTML-коду сторінки та відображення інформації про файли в RecyclerView
+                downloadJob = CoroutineScope(Dispatchers.IO).launch {
+                    try {
+                        val document = Jsoup.connect(url).get()
+                        val filesList = extractFilesList(document)
+                        withContext(Dispatchers.Main) {
+                            filesAdapter.setItems(filesList)
+                            RecyclerViewUtils.checkEmpty(recyclerView, empty, null)
+                        }
+                    } catch (e: Exception) {
+                        e.printStackTrace()
+                        withContext(Dispatchers.Main) {
+                            RecyclerViewUtils.checkEmpty(recyclerView, empty, getString(R.string.failed_to_add_files))
+                        }
                     }
                 }
+            } else {
+                RecyclerViewUtils.checkEmpty(recyclerView, empty, getString(R.string.no_internet_connection))
             }
         } else {
-            RecyclerViewUtils.checkEmpty(recyclerView, empty, getString(R.string.no_internet_connection))
+            cardFiles.visibility = View.GONE // Робимо карточку файлів невидимою
+            binding.romInfo.root.visibility = View.GONE
+            binding.romInfoShort.root.visibility = View.VISIBLE
         }
+
         romInfo()
         return root
     }
@@ -114,17 +125,25 @@ class DownloadCenterFragment : Fragment(), MenuProvider, ToolbarTitleProvider {
     }
 
     private fun romInfo() {
-        val originalDateFormat = SimpleDateFormat("yyyyMMdd-HHmm", Locale.getDefault())
-        val displayDateFormat = SimpleDateFormat("MM/dd/yyyy", Locale.getDefault())
-        val originalDateString = DeviceSystemInfo.craftBuildDate()
-        val originalDate = originalDateFormat.parse(originalDateString)
-        val displayDate = displayDateFormat.format(originalDate as Date)
+        
+        if (DeviceSystemInfo.isAnyCraftromProperty()) {
 
-        binding.romInfo.romDeviceCodenameInfo.text = getString(R.string.rom_codename_title_info, DeviceSystemInfo.device() , DeviceSystemInfo.deviceCode())
-        binding.romInfo.romVersionInfo.text = getString(R.string.rom_version_info, DeviceSystemInfo.craftromVersion(), DeviceSystemInfo.releaseVersion())
-        binding.romInfo.romBuildDateInfo.text = displayDate
-        binding.romInfo.homeSecurityInfo.text = Build.VERSION.SECURITY_PATCH
-        binding.romInfo.romMaintainerInfo.text = DeviceSystemInfo.craftMaintainer()
+            val originalDateFormat = SimpleDateFormat("yyyyMMdd-HHmm", Locale.getDefault())
+            val displayDateFormat = SimpleDateFormat("MM/dd/yyyy", Locale.getDefault())
+            val originalDateString = DeviceSystemInfo.craftBuildDate()
+            val originalDate = originalDateFormat.parse(originalDateString)
+            val displayDate = displayDateFormat.format(originalDate as Date)
+
+            binding.romInfo.romDeviceCodenameInfo.text = getString(R.string.rom_codename_title_info, DeviceSystemInfo.device() , DeviceSystemInfo.deviceCode())
+            binding.romInfo.romVersionInfo.text = getString(R.string.rom_version_info, DeviceSystemInfo.craftromVersion(), DeviceSystemInfo.releaseVersion())
+            binding.romInfo.romBuildDateInfo.text = displayDate
+            binding.romInfo.homeSecurityInfo.text = Build.VERSION.SECURITY_PATCH
+            binding.romInfo.romMaintainerInfo.text = DeviceSystemInfo.craftMaintainer()
+
+        } else {
+            binding.romInfoShort.romDeviceCodenameInfo.text = getString(R.string.rom_codename_title_info, DeviceSystemInfo.device() , DeviceSystemInfo.deviceCode())
+            binding.romInfoShort.homeSecurityInfo.text = Build.VERSION.SECURITY_PATCH
+        }
     }
 
     private fun extractFilesList(document: org.jsoup.nodes.Document): List<FileInfo> {

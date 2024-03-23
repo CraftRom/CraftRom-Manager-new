@@ -228,6 +228,16 @@ open class DeviceSystemInfo {
             }
         }
 
+        fun isAnyCraftromProperty(): Boolean {
+            val propertiesToCheck = listOf(
+                "org.craftrom.version",
+                "ro.craftrom.maintainer",
+                "org.craftrom.build_date"
+            )
+
+            return propertiesToCheck.any { getSystemProperty(it)!!.isNotEmpty() }
+        }
+
         fun craftromVersion(): String {
             val exodusVersion = getSystemProperty("org.craftrom.version")
             return exodusVersion.toString()

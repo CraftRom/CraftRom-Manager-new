@@ -17,6 +17,7 @@
 
     <include
         android:id="@+id/rom_info"
+        android:visibility="gone"
         layout="@layout/include_rom_info"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -24,8 +25,17 @@
         android:layout_marginEnd="@dimen/l1"
         app:layout_constraintTop_toBottomOf="@+id/rom_info" />
 
+        <include
+            android:id="@+id/rom_info_short"
+            layout="@layout/include_rom_info_short"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/l1"
+            android:layout_marginEnd="@dimen/l1"
+            app:layout_constraintTop_toBottomOf="@+id/rom_info" />
+
     <com.google.android.material.card.MaterialCardView
-        android:id="@+id/files_card"
+        android:id="@+id/filesCard"
         style="@style/WidgetFoundation.Card"
         app:cardElevation="0dp"
         android:layout_width="match_parent"
