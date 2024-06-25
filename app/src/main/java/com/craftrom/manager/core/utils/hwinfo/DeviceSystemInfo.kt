@@ -283,6 +283,7 @@ open class DeviceSystemInfo {
             val onclite = mutableListOf("onc", "onclite")
             val spes = mutableListOf("spes", "spesn")
             val surya = mutableListOf("karna", "surya")
+            val sunny = mutableListOf("sunny", "mojito")
             code = if (isEliminated(device, chime)) {
                 "chime"
             } else {
@@ -298,7 +299,11 @@ open class DeviceSystemInfo {
                             if (isEliminated(device, spes)) {
                                 "spes"
                             } else {
-                                device
+                                if (isEliminated(device, sunny)) {
+                                    "sunny"
+                                } else {
+                                    device
+                                }
                             }
                         }
                     }
