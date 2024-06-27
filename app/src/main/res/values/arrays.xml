@@ -1,5 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
+    <string-array name="dark_list">
+        <item>Default</item>
+        <item>Light</item>
+        <item>Dark</item>
+    </string-array>
+
+    <string-array name="dark_values">
+        <item>DEFAULT_MODE</item>
+        <item>LIGHT_MODE</item>
+        <item>DARK_MODE</item>
+    </string-array>
+
     <array name="autosize_title_sizes">
         <item>10sp</item>
         <item>12sp</item>
@@ -8,4 +21,5 @@
         <item>15sp</item>
         <item>16sp</item>
     </array>
+
 </resources>

@@ -12,6 +12,8 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.craftrom.manager.core.utils.ToolbarTitleUtils.setToolbarText
 import com.craftrom.manager.core.utils.interfaces.ToolbarTitleProvider
+import com.craftrom.manager.core.utils.theme.ThemePreferences
+import com.craftrom.manager.core.utils.theme.applyTheme
 import com.craftrom.manager.databinding.ActivityMainBinding
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
@@ -21,6 +23,8 @@ class MainActivity : AppCompatActivity() {
     private var isRootFragment = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        val themePreferences = ThemePreferences(this)
+        applyTheme(themePreferences.getSelectedTheme())
         super.onCreate(savedInstanceState)
 
         binding = ActivityMainBinding.inflate(layoutInflater)

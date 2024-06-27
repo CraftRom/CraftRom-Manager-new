@@ -29,6 +29,11 @@
     <dimen name="marginPageBig">28dp</dimen>
     <dimen name="marginPageNormal">16dp</dimen>
 
+    <dimen name="dialog_item_padding_horizontal">18dp</dimen>
+    <dimen name="dialog_item_padding_vertical">4dp</dimen>
+    <!-- dimens.xml -->
+    <dimen name="dialog_title_padding_horizontal">18dp</dimen>
+    <dimen name="dialog_title_padding_vertical">12dp</dimen>
 
     <dimen name="internal_action_bar_size">56dp</dimen>
     <dimen name="toolbarBigHeight">112dp</dimen>

@@ -51,4 +51,29 @@
         <item name="android:layout_height">wrap_content</item>
     </style>
 
+    <!-- Style for Preference Screen -->
+    <style name="PreferenceScreenTheme" parent="PreferenceThemeOverlay">
+        <item name="android:textColorPrimary">?attr/colorPrimary</item>
+        <item name="android:textColorSecondary">?attr/colorSecondary</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:colorAccent">?attr/colorAccent</item>
+    </style>
+
+    <!-- Style for ListPreference, SwitchPreference, and other Preferences -->
+    <style name="PreferenceText">
+        <item name="android:textColor">?attr/colorOnSurface</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+    <style name="PreferenceTextSummary">
+        <item name="android:textColor">?attr/colorOnSurface</item>
+        <item name="android:textSize">12sp</item>
+    </style>
+
+    <!-- styles.xml -->
+    <style name="CustomDialogStyle" parent="Theme.AppCompat.Dialog">
+        <item name="android:windowBackground">@android:color/white</item>
+        <item name="android:colorBackgroundCacheHint">@null</item>
+    </style>
+
+
 </resources>

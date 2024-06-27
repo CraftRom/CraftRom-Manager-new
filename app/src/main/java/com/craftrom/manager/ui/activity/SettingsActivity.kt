@@ -21,34 +21,27 @@ import android.app.ActivityManager
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
-import android.provider.Settings
 import android.view.MenuItem
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import android.provider.Settings
+import androidx.preference.ListPreference
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
-import androidx.preference.TwoStatePreference
 import com.craftrom.manager.R
+import com.craftrom.manager.core.utils.theme.ThemePreferences
+import com.craftrom.manager.core.utils.theme.ThemeType
+import com.craftrom.manager.core.utils.theme.applyTheme
 import com.craftrom.manager.databinding.SettingsActivityBinding
 
 
 class SettingsActivity : AppCompatActivity() {
 
-    companion object {
-        const val PREF_CURRENT_DOWNLOADS = "current_downloads"
-        const val PREF_CHECK_UPDATES_OLD = "check_updates"
-        const val PREF_CURRENT_APPS = "current_apps"
-        const val PREF_CURRENT_INSTALLS = "current_installs"
-        const val PREF_CHECK_UPDATES_WORKER = "check_updates_worker"
-        const val PREF_UPDATE_APPS = "update_apps"
-        const val PREF_POST_NOTIFICATION = "post_notifications"
-    }
-
     private lateinit var mBinding: SettingsActivityBinding
 
     class SettingsFragment : PreferenceFragmentCompat() {
         override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
-            addPreferencesFromResource(R.xml.settings)
+            setPreferencesFromResource(R.xml.preference, rootKey)
 
             val notificationPreference =
                 findPreference<Preference>("notification_settings")
@@ -59,11 +52,23 @@ class SettingsActivity : AppCompatActivity() {
                 false
             }
 
-            val checkUpdatesPreference =
-                findPreference<TwoStatePreference>(PREF_CHECK_UPDATES_WORKER)
-            checkUpdatesPreference?.setOnPreferenceChangeListener { _, newValue ->
+            val themePreferences = ThemePreferences(requireContext())
+            findPreference<ListPreference>(getString(R.string.settings_dark_theme_key))?.setOnPreferenceChangeListener { _, newValue ->
+                val themeType = when (newValue) {
+                    "1" -> ThemeType.LIGHT_MODE
+                    "2" -> ThemeType.DARK_MODE
+                    else -> ThemeType.DEFAULT_MODE
+                }
+                themePreferences.setSelectedTheme(themeType)
+                applyTheme(themeType)
                 true
             }
+        }
+
+        override fun onStop() {
+            super.onStop()
+            val themePreferences = ThemePreferences(requireContext())
+            applyTheme(themePreferences.getSelectedTheme())
         }
     }
 

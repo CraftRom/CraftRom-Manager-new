@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:title="@string/settings"
+    android:theme="@style/PreferenceScreenTheme">
+
+    <PreferenceCategory
+        android:title="@string/category_theme">
+        <com.craftrom.manager.core.utils.interfaces.CustomThemeListPreference
+            android:key="@string/settings_dark_theme_key"
+            android:title="@string/settings_dark_theme_title"
+            android:entries="@array/dark_list"
+            android:entryValues="@array/dark_values"
+            android:defaultValue="DEFAULT_MODE"
+            android:summary="%s"
+            android:iconSpaceReserved="false"
+            android:layout="@layout/preference_layout"
+            android:dialogTheme="@style/CustomDialogStyle"
+            app:dialogBackground="@drawable/dialog_background"
+            app:dialogTitle="Select Theme"
+            app:dialogCancelButton="Cancel"
+            app:dialogTextColor="?attr/colorOnSurface"
+            app:dialogTitleColor="?attr/colorPrimary"/>
+
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:title="@string/category_notifications">
+        <SwitchPreference
+            android:key="check_updates_worker"
+            android:summary="@string/check_updates_summary"
+            android:title="@string/check_updates_title"
+            android:layout="@layout/preference_layout" />
+
+        <Preference
+            android:key="notification_settings"
+            android:summary="@string/notification_settings_summary"
+            android:title="@string/notification_settings_title"
+            android:persistent="false"
+            android:layout="@layout/preference_layout" />
+    </PreferenceCategory>
+</PreferenceScreen>
+

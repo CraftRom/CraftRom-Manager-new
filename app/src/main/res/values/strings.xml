@@ -100,8 +100,12 @@
     <string name="copyr" translatable="false">© 2020-%s All Right Reserved.</string>
     <string name="app_name_version">%s version: %s </string>
 
+    <!-- Settings -->
+    <string name="category_theme">Theme</string>
+    <string name="settings_dark_theme_key">dark_theme</string>
+    <string name="settings_dark_theme_title">Dark Theme</string>
     <string name="category_notifications">Notifications</string>
-    <string name="notification_settings_summary"></string>
+    <string name="notification_settings_summary" />
     <string name="notification_settings_title">Manage notifications</string>
     <string name="check_updates_summary">Will check for updated apps daily</string>
     <string name="check_updates_title">Check for updates</string>

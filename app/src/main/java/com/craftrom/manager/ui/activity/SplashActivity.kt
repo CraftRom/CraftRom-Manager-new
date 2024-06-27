@@ -15,6 +15,8 @@ import androidx.core.content.pm.PackageInfoCompat
 import com.craftrom.manager.MainActivity
 import com.craftrom.manager.R
 import com.craftrom.manager.core.utils.Constants
+import com.craftrom.manager.core.utils.theme.ThemePreferences
+import com.craftrom.manager.core.utils.theme.applyTheme
 import java.util.*
 
 @SuppressLint("CustomSplashScreen")
@@ -43,6 +45,8 @@ class SplashActivity : AppCompatActivity() {
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        val themePreferences = ThemePreferences(this)
+        applyTheme(themePreferences.getSelectedTheme())
         super.onCreate(savedInstanceState)
         // Налаштування вікна для розтягнутого вигляду під статус-бар та виріз
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {

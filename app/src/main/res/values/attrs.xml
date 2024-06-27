@@ -27,7 +27,13 @@
     <declare-styleable name="TypefaceTextView">
         <attr name="typeface" format="string" />
     </declare-styleable>
-
+    <declare-styleable name="CustomThemeListPreference">
+        <attr name="dialogBackground" format="reference" />
+        <attr name="dialogTitle" format="string" />
+        <attr name="dialogCancelButton" format="string" />
+        <attr name="dialogTextColor" format="color" />
+        <attr name="dialogTitleColor" format="color" />
+    </declare-styleable>
     <fraction name="listImageRatio">0.25</fraction>
     <fraction name="listImageBigRatio">0.35</fraction>
     <fraction name="listImageMediumRatio">0.20</fraction>

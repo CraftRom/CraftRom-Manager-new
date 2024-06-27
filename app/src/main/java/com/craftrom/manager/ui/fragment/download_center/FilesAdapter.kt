@@ -1,5 +1,6 @@
 package com.craftrom.manager.ui.fragment.download_center
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.net.Uri
 import android.view.Gravity
@@ -19,6 +20,7 @@ class FilesAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private var items: List<FileInfo> = emptyList()
 
+    @SuppressLint("NotifyDataSetChanged")
     fun setItems(items: List<FileInfo>) {
         this.items = items
         notifyDataSetChanged()
