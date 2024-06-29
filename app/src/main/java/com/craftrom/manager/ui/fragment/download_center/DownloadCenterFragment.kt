@@ -1,7 +1,5 @@
 package com.craftrom.manager.ui.fragment.download_center
 
-import android.content.Context
-import android.net.ConnectivityManager
 import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -13,8 +11,8 @@ import android.view.ViewGroup
 import android.webkit.WebView
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat.getColor
 import androidx.core.view.MenuHost
 import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
@@ -216,22 +214,49 @@ class DownloadCenterFragment : Fragment(), MenuProvider, ToolbarTitleProvider {
             throw IOException("Failed to download Markdown file: $url")
         }
         val markdownFile = response.body.string()
+
+        fun colorToHex(color: Int): String {
+            return String.format("#%06X", 0xFFFFFF and color)
+        }
+
+        val backgroundColor = colorToHex(getColor(requireContext(), R.color.bgHtml))
+        val textColor = colorToHex(getColor(requireContext(), R.color.h2Html))
+        val h2Color = colorToHex(getColor(requireContext(), R.color.strongHtml))
+        val borderColor = colorToHex(getColor(requireContext(), R.color.dividerHtml))
+        val listItemColor = colorToHex(getColor(requireContext(), R.color.textHtml))
+        val listItemMarkerColor = colorToHex(getColor(requireContext(), R.color.strongHtml))
+        val strongTextColor = colorToHex(getColor(requireContext(), R.color.strongHtml))
+
         """
 <html>
 <head>
     <style>
+        :root {
+            --background-color: $backgroundColor; /* Чорний фон */
+            --text-color: $textColor; /* Білий текст для контрасту */
+            --h2-color: $h2Color; /* Колір заголовків */
+            --border-color: $borderColor; /* Колір нижньої границі заголовків */
+            --list-item-color: $listItemColor; /* Колір пунктів списку */
+            --list-item-marker-color: $listItemMarkerColor; /* Колір маркерів пунктів списку */
+            --strong-text-color: $strongTextColor; /* Колір сильних тегів */
+        }
 
+        body {
+            background-color: var(--background-color);
+            color: var(--text-color);
+        }
 
         h2 {
-            color: #1f2328;
+            color: var(--h2-color);
             padding-bottom: 0.3em;
             font-size: 1.3em;
-            border-bottom: 1px solid #d8dee4;
+            border-bottom: 1px solid var(--border-color);
         }
+
         ol {
-        margin-top: 16px;
+            margin-top: 16px;
         }
-        
+
         ul, ol {
             list-style-type: none;
             padding-left: 0; /* замінено на 0, щоб усунути відступи відносно зовнішнього контейнера */
@@ -249,7 +274,7 @@ class DownloadCenterFragment : Fragment(), MenuProvider, ToolbarTitleProvider {
         }
 
         li {
-            color: #586069;
+            color: var(--list-item-color);
             list-style-type: none;
             margin-bottom: 0px;
             padding-left: 8px;
@@ -262,14 +287,14 @@ class DownloadCenterFragment : Fragment(), MenuProvider, ToolbarTitleProvider {
 
         ul li::before { /* використовуємо псевдоелемент ::before для створення крапок */
             content: "\2022"; /* Код символу для крапки */
-            color: #2196f3; /* Колір крапки, який використовується на GitHub */
+            color: var(--list-item-marker-color); /* Колір крапки */
             font-size: 0.75em; /* Розмір шрифту крапки */
             margin-right: 0.5em; /* Відстань між крапкою і текстом */
         }
 
         li strong {
             font-size: 1.1em;
-            color: #2196f3; /* колір тексту, який використовується для сильних тегів */
+            color: var(--strong-text-color); /* колір тексту, який використовується для сильних тегів */
             margin-bottom: 8px;
         }
     </style>

@@ -9,7 +9,13 @@
     <color name="colorNav">@color/blue</color>
     <color name="colorOnSurface_hard">#444444</color>
 
-    <color name="bghtml">#EEEEEE</color>
+    <!-- HTML style -->
+    <color name="bgHtml">#EEEEEE</color>
+    <color name="h2Html">#2196f3</color>
+    <color name="strongHtml">#3E78AF</color>
+    <color name="textHtml">#444444</color>
+    <color name="dividerHtml">#BF444444</color>
+
     <color name="icobg">#444444</color>
     <!-- Themes -->
     <color name="blue">#2196f3</color>

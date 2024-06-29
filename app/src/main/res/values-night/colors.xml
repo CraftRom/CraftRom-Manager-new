@@ -1,4 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
+    <!-- HTML style -->
+    <color name="bgHtml">#171717</color>
+    <color name="textHtml">#D8D8D8</color>
+    <color name="dividerHtml">#CCBABABA</color>
+
     <color name="icobg">#D8D8D8</color>
 </resources>
