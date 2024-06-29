@@ -156,7 +156,7 @@ class DownloadCenterFragment : Fragment(), MenuProvider, ToolbarTitleProvider {
             val size = row.selectFirst("td.opt[headers=files_size_h]")!!.text().trim()
             val lastUpdatedStr = row.selectFirst("td.opt[headers=files_date_h] abbr")!!.attr("title")
             val lastUpdatedDate = dateFormat.parse(lastUpdatedStr)
-            val lastUpdated = outputFormat.format(lastUpdatedDate)
+            val lastUpdated = outputFormat.format(lastUpdatedDate!!)
             val downloadLink = row.selectFirst("a")!!.attr("href")
             files.add(FileInfo(name, size, lastUpdated, downloadLink))
         }
@@ -220,9 +220,7 @@ class DownloadCenterFragment : Fragment(), MenuProvider, ToolbarTitleProvider {
 <html>
 <head>
     <style>
-        body {
-            background-color: #EEEEEE; /* Прозорий фон */
-        }
+
 
         h2 {
             color: #1f2328;

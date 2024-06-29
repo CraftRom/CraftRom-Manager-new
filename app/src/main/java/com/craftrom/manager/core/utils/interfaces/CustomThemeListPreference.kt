@@ -5,11 +5,8 @@ import android.content.Context
 import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.Drawable
 import android.util.AttributeSet
-import android.util.TypedValue
-import android.view.View
-import android.view.ViewGroup
+import android.view.LayoutInflater
 import android.widget.AdapterView
-import android.widget.ArrayAdapter
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.preference.ListPreference
@@ -67,44 +64,29 @@ class CustomThemeListPreference : ListPreference {
         val selectedIndex = findIndexOfValue(currentSelectedValue)
         var selectedThemeType = ThemeType.DEFAULT_MODE
 
-        val adapter = object : ArrayAdapter<CharSequence>(
+        val adapter = CustomDialogAdapter(
             context,
-            android.R.layout.select_dialog_singlechoice,
-            entries
-        ) {
-            override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
-                val view = super.getView(position, convertView, parent)
-                val textView = view.findViewById<TextView>(android.R.id.text1)
-
-                // Add padding to the text view
-                val horizontalPadding = context.resources.getDimensionPixelSize(R.dimen.dialog_item_padding_horizontal)
-                val verticalPadding = context.resources.getDimensionPixelSize(R.dimen.dialog_item_padding_vertical)
-                textView.setPadding(horizontalPadding, verticalPadding, horizontalPadding, verticalPadding)
-                textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16f) // Set text size in SP
-                textView.setTextColor(dialogTextColor)
-                return view
-            }
-        }
-
+            R.layout.custom_dialog_item,
+            R.id.dialogItemCheckedText,
+            entries,
+            dialogTextColor,
+            selectedIndex // Передаємо індекс обраного елемента
+        )
 
         val builder = AlertDialog.Builder(context)
             .setSingleChoiceItems(adapter, selectedIndex, null)
             .setNegativeButton(dialogCancelButton ?: context.getString(android.R.string.cancel)) { dialog, _ -> dialog.dismiss() }
 
-// Create custom title view with specified text color and size
-        val customTitleView = TextView(context).apply {
-            text = dialogTitle ?: title
-            setTextColor(dialogTitleColor)
-            setTextSize(TypedValue.COMPLEX_UNIT_SP, 20f) // Set text size in SP
-            val horizontalPadding = resources.getDimensionPixelSize(R.dimen.dialog_title_padding_horizontal)
-            val verticalPadding = resources.getDimensionPixelSize(R.dimen.dialog_title_padding_vertical)
-            setPadding(horizontalPadding, verticalPadding, horizontalPadding, verticalPadding)
+        // Create custom title view with specified text color and size
+        val customTitleView = LayoutInflater.from(context).inflate(R.layout.custom_dialog_title, null).apply {
+            findViewById<TextView>(R.id.dialogTitle).apply {
+                text = dialogTitle ?: title
+                setTextColor(dialogTitleColor)
+            }
         }
 
-// Set custom title view in the dialog builder
+        // Set custom title view in the dialog builder
         builder.setCustomTitle(customTitleView)
-
-
 
         val dialog = builder.create()
 
@@ -134,3 +116,7 @@ class CustomThemeListPreference : ListPreference {
         }
     }
 }
+
+
+
+

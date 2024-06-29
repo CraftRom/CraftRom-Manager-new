@@ -2,6 +2,7 @@ package com.craftrom.manager.ui.fragment.about
 
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.graphics.PorterDuff
 import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.craftrom.manager.R
 import com.craftrom.manager.core.Link
@@ -53,12 +55,16 @@ class AboutFragment : Fragment(), ToolbarTitleProvider {
         val linksContainer = binding.linksContainer
         val inflater = LayoutInflater.from(requireContext())
 
+        val iconColor = ContextCompat.getColor(requireContext(), R.color.icobg)
+
         for (link in links) {
             val linkView = inflater.inflate(R.layout.item_link, linksContainer, false)
             val iconImageView = linkView.findViewById<ImageView>(R.id.iconImageView)
             val labelTextView = linkView.findViewById<TextView>(R.id.labelTextView)
 
             iconImageView.setImageResource(link.iconResId)
+            // Задаємо колір для іконки
+            iconImageView.setColorFilter(iconColor, PorterDuff.Mode.SRC_IN)
             labelTextView.text = getString(link.labelResId)
             linkView.setOnClickListener {
                 openUrl(link.url)
@@ -67,6 +73,7 @@ class AboutFragment : Fragment(), ToolbarTitleProvider {
             // Додавання View до контейнера
             linksContainer.addView(linkView)
         }
+
 
 
         return binding.root

@@ -10,7 +10,7 @@
     <color name="colorOnSurface_hard">#444444</color>
 
     <color name="bghtml">#EEEEEE</color>
-
+    <color name="icobg">#444444</color>
     <!-- Themes -->
     <color name="blue">#2196f3</color>
     <color name="blueTransparent50">#802196F3</color>
