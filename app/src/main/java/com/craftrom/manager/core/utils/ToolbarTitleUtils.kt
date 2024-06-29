@@ -1,6 +1,5 @@
 package com.craftrom.manager.core.utils
 
-
 import android.os.Handler
 import android.os.Looper
 import android.view.animation.AlphaAnimation
@@ -9,48 +8,51 @@ import androidx.appcompat.app.AppCompatActivity
 import com.craftrom.manager.R
 
 object ToolbarTitleUtils {
+    private var subtitleHandler: Handler? = null
+    private var subtitleRunnable: Runnable? = null
+
     fun setToolbarText(activity: AppCompatActivity, title: String, subtitle: String?) {
         activity.supportActionBar?.apply {
             val titleTextView = activity.findViewById<TextView>(R.id.toolbar_title)
             val subtitleTextView = activity.findViewById<TextView>(R.id.toolbar_subtitle)
 
-            // Змінюємо прозорість заголовка
+            // Clear any previous animations and reset text
+            titleTextView.clearAnimation()
+            subtitleTextView.clearAnimation()
+
+            // Change title opacity
             animateTextView(titleTextView)
             titleTextView.text = title
             titleTextView.maxLines = 1
 
-            // Застосовуємо ефект друкування до підзаголовка
-            animateTextPrinting(subtitleTextView, subtitle ?: "")
-            subtitleTextView.maxLines = 1
+            // Start typing animation for subtitle
+            subtitleHandler?.removeCallbacks(subtitleRunnable!!)
+            subtitleRunnable = Runnable {
+                animateTextPrinting(subtitleTextView, subtitle ?: "")
+            }
+            subtitleHandler = Handler(Looper.getMainLooper())
+            subtitleHandler?.post(subtitleRunnable!!)
         }
     }
 
     private fun animateTextPrinting(textView: TextView, text: String) {
         val textLength = text.length
-        val delayMillis: Long = 50 // Затримка між відображенням кожного символу
+        val delayMillis: Long = 50 // Delay between each character
 
-        val handler = Handler(Looper.getMainLooper())
-        var currentLength = 0
-
-        handler.postDelayed(object : Runnable {
-            override fun run() {
-                if (currentLength <= textLength) {
-                    val displayedText = if (currentLength % 2 == 0 && currentLength < textLength) {
-                        text.substring(0, currentLength) + "_"
-                    } else {
-                        text.substring(0, currentLength)
-                    }
-                    textView.text = displayedText
-                    currentLength++
-                    handler.postDelayed(this, delayMillis)
-                }
+        for (i in 0..textLength) {
+            val displayedText = if (i < textLength) {
+                text.substring(0, i) + "_"
+            } else {
+                text.substring(0, i)
             }
-        }, delayMillis)
+            textView.text = displayedText
+            Thread.sleep(delayMillis)
+        }
     }
 
     private fun animateTextView(textView: TextView) {
         val anim = AlphaAnimation(0.0f, 1.0f)
-        anim.duration = 280 // Тривалість анімації у мілісекундах
+        anim.duration = 280 // Animation duration in milliseconds
         textView.startAnimation(anim)
     }
 }
