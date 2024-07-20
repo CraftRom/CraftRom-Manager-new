@@ -75,9 +75,9 @@
 
     <string name="rom_name" translatable="false">Craft Rom OS</string>
     <string name="rom_codename_title">Device</string>
-    <string name="rom_codename_title_info">%s (Family %s)</string>
+    <string name="rom_codename_title_info" formatted="false">%s (Family %s)</string>
     <string name="rom_version">Version</string>
-    <string name="rom_version_info">%s (Android %s)</string>
+    <string name="rom_version_info" formatted="false">%s (Android %s)</string>
     <string name="rom_build_date">Build date</string>
     <string name="rom_maintainer">Maintainer</string>
 
@@ -98,7 +98,7 @@
     <string name="days_ago">%1$d days ago</string>
 
     <string name="copyr" translatable="false">© 2020-%s All Right Reserved.</string>
-    <string name="app_name_version">%s version: %s </string>
+    <string name="app_name_version" formatted="false">%s version: %s </string>
 
     <!-- Settings -->
     <string name="category_theme">Theme</string>
