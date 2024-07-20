@@ -8,12 +8,18 @@ import android.content.Context.ACTIVITY_SERVICE
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Build
+import android.os.Build.UNKNOWN
 import com.craftrom.manager.R
 import com.craftrom.manager.core.app.ServiceContext.context
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.withContext
+import org.json.JSONArray
 import java.io.BufferedReader
 import java.io.File
 import java.io.IOException
 import java.io.InputStreamReader
+import java.net.URL
 import java.security.Security
 import java.text.SimpleDateFormat
 import java.util.*
@@ -82,7 +88,22 @@ open class DeviceSystemInfo {
         }
 
         fun socManufacturer(): String = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-            Build.SOC_MANUFACTURER
+            Build.BOARD.let { board ->
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+                    val socManufacturer = Build.SOC_MANUFACTURER
+                    val socModel = Build.SOC_MODEL
+                    val validManufacturer = socManufacturer != UNKNOWN
+                    val validModel = socModel != UNKNOWN
+
+                    if (validManufacturer && validModel) {
+                        "$socManufacturer $socModel ($board)"
+                    } else if (validManufacturer) {
+                        "$socManufacturer ($board)"
+                    } else if (validModel) {
+                        "$socModel ($board)"
+                    } else board
+                } else board
+            }
         } else {
             errorResult()
         }
@@ -189,7 +210,7 @@ open class DeviceSystemInfo {
          */
         fun getSecurityData(): String {
             val securityProviders = Security.getProviders().map { "${it.name}, v${it.version}"}
-            return securityProviders.joinToString("\n") ?: errorResult()
+            return securityProviders.joinToString("\n")
         }
 
         /**
@@ -274,54 +295,62 @@ open class DeviceSystemInfo {
             val fields = Build.VERSION_CODES::class.java.fields
             return fields[Build.VERSION.SDK_INT].name
         }
+        data class Version(
+            val version_code: String,
+            val xda_thread: String,
+            val stable: Boolean,
+            val deprecated: Boolean
+        )
 
-        fun deviceCode(): String {
-            val device = device()
-            val code: String
-            val chime = mutableListOf("citrus", "lime", "lemon", "pomelo")
-            val mi439 = mutableListOf("olive", "olivewood", "olivelite")
-            val onclite = mutableListOf("onc", "onclite")
-            val spes = mutableListOf("spes", "spesn")
-            val surya = mutableListOf("karna", "surya")
-            val sunny = mutableListOf("sunny", "mojito")
-            code = if (isEliminated(device, chime)) {
-                "chime"
-            } else {
-                if (isEliminated(device, onclite)) {
-                    "onclite"
-                } else {
-                    if (isEliminated(device, surya)) {
-                            "surya"
-                    } else {
-                        if (isEliminated(device, mi439)) {
-                            "mi439"
-                        } else {
-                            if (isEliminated(device, spes)) {
-                                "spes"
-                            } else {
-                                if (isEliminated(device, sunny)) {
-                                    "sunny"
-                                } else {
-                                    device
-                                }
+        suspend fun deviceCode(): String? {
+            return withContext(Dispatchers.IO) {
+                try {
+                    val url = "https://raw.githubusercontent.com/craftrom-os/official_devices/master/devices.json"
+                    val jsonString = URL(url).readText()
+
+                    val devicesArray = JSONArray(jsonString)
+
+                    val device = device() // Потрібно замінити на фактичний спосіб отримання поточного device
+
+                    var codename: String? = null
+
+                    for (i in 0 until devicesArray.length()) {
+                        val deviceObject = devicesArray.getJSONObject(i)
+                        val variantNames = deviceObject.getJSONArray("variant_name")
+
+                        for (j in 0 until variantNames.length()) {
+                            if (variantNames.getString(j) == device) {
+                                codename = deviceObject.getString("codename")
+                                break
                             }
                         }
+
+                        if (codename != null) {
+                            break
+                        }
                     }
+
+                    codename
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                    null
                 }
             }
-
-            return code
         }
-
-
-
-    private fun isEliminated(name: String, device: MutableList<String>): Boolean {
-            return name in device
+        fun code(): String {
+            var deviceInfo: String?
+            runBlocking {
+                deviceInfo = deviceCode()
+                deviceInfo?.let {
+                    println("Device info: $deviceInfo")
+                }
+            }
+            return deviceInfo ?: device()
         }
 
     private fun getSystemProperty(propName: String): String? {
-            var line = ""
-            var input: BufferedReader? = null
+        val line: String
+        var input: BufferedReader? = null
             try {
                 val p = Runtime.getRuntime().exec("getprop $propName")
                 input = BufferedReader(InputStreamReader(p.inputStream), 1024)

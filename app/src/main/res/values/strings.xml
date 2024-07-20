@@ -129,6 +129,7 @@
     <string name="no">No</string>
 
     <!-- Common -->
+    <string name="wait">Just a moment…</string>
     <string name="common_empty_result" translatable="false">-</string>
     <string name="todo" translatable="false">TODO</string>
 </resources>

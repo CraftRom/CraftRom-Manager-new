@@ -12,12 +12,12 @@ import com.craftrom.manager.R
 import com.craftrom.manager.core.time.CoroutineTimer
 import com.craftrom.manager.core.utils.Constants
 import com.craftrom.manager.core.utils.Constants.INTERVAL_1_FPS
-import com.craftrom.manager.core.utils.interfaces.ToolbarTitleProvider
 import com.craftrom.manager.core.utils.hwinfo.BatteryInfo
 import com.craftrom.manager.core.utils.hwinfo.CPUInfo
 import com.craftrom.manager.core.utils.hwinfo.DeviceSystemInfo
 import com.craftrom.manager.core.utils.hwinfo.DisplayInfo
 import com.craftrom.manager.core.utils.hwinfo.MemoryInfo
+import com.craftrom.manager.core.utils.interfaces.ToolbarTitleProvider
 import com.craftrom.manager.databinding.FragmentDeviceBinding
 
 class DeviceFragment : Fragment(), ToolbarTitleProvider {
@@ -107,7 +107,7 @@ class DeviceFragment : Fragment(), ToolbarTitleProvider {
         val cl_speed: TextView = binding.homeSocWrapper.homeCoreSpeedInfo
 
         cores.text = DeviceSystemInfo.numberOfCores().toString()
-        soc.text = "${DeviceSystemInfo.socManufacturer()} ${DeviceSystemInfo.socModel()}"
+        soc.text = CPUInfo.getSystemChip()
         socAbi.text = DeviceSystemInfo.soc()
         machine.text = DeviceSystemInfo.arch()
         mode.text = if (DeviceSystemInfo.is64Bit()) {

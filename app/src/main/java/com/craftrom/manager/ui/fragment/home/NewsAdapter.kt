@@ -12,7 +12,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.craftrom.manager.R
 import com.craftrom.manager.core.NewsItem
 import com.craftrom.manager.databinding.ItemNewsBinding
-import com.squareup.picasso.Picasso
 
 class NewsAdapter(private val newsList: List<NewsItem>) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
@@ -57,15 +56,10 @@ class NewsAdapter(private val newsList: List<NewsItem>) :
                 binding.titleTextView.text = currentItem.title
                 binding.descriptionTextView.text = currentItem.description
                 binding.pubDateTextView.text = "$formattedDate \u2022 ${currentItem.author}"
-                if (imageUrl.isNotEmpty()) {
-                    Picasso.get()
-                        .load(imageUrl)
-                        .into(binding.newsImg)
-                } else {
-                    Picasso.get()
-                        .load(imageUrlEmpty)
-                        .into(binding.newsImg)
-                }
+                // Визначаємо URL зображення або placeholder
+                val loadUrl = imageUrl.takeIf { it.isNotEmpty() } ?: imageUrlEmpty
+                val placeholder = R.drawable.background_gradient_three
+                binding.newsImg.setImageWithPerspective(loadUrl, placeholder)
 
 
                 val colorResId = when (currentItem.category) {

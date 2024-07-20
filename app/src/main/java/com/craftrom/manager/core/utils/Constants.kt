@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.Intent
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
+import android.util.Log
 import com.craftrom.manager.R
 import com.craftrom.manager.core.app.ServiceContext.context
 import org.commonmark.parser.Parser
@@ -12,28 +13,54 @@ import org.commonmark.renderer.html.HtmlRenderer
 
 object Constants {
     const val TAG = "CraftRom"
-    const val KERNEL_NAME = "Chidori"
-    const val KALI_NAME = "Tsukuyoumi"
 
     // Інші константи
     const val SPLASH_TIME_OUT = 2000L // 2 sec
     const val INTERVAL_1_FPS = 1000L
     // News
     var DEFAULT_NEWS_SOURCE: String = "https://www.craft-rom.pp.ua/"
-    var DEFAULT_NEWS_COUNT: Int = 15
-
-
-    const val DATE_FORMAT_API = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
-    const val DATE_FORMAT_USER = "dd.MM.yyyy HH:mm"
 
     fun isInternetAvailable(context: Context): Boolean {
-        val connectivityManager =
-            context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-        val networkCapabilities = connectivityManager.activeNetwork ?: return false
-        val capabilities =
-            connectivityManager.getNetworkCapabilities(networkCapabilities) ?: return false
-        return capabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
+        val connectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager?
+
+        if (connectivityManager == null) {
+            Log.e("InternetCheck", "ConnectivityManager is null")
+            return false
+        }
+
+        try {
+            val network = connectivityManager.activeNetwork ?: return false
+            val capabilities = connectivityManager.getNetworkCapabilities(network) ?: return false
+
+            if (!capabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET) ||
+                !capabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_VALIDATED)) {
+                Log.i("InternetCheck", "No internet capability or network not validated")
+                return false
+            }
+
+            if (capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) ||
+                capabilities.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET)) {
+                Log.i("InternetCheck", "Connected via WiFi or Ethernet")
+                return true
+            }
+
+            if (capabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR)) {
+                val minBandwidthKbps = 500 // Minimum bandwidth threshold for cellular in Kbps
+                val downstreamBandwidth = capabilities.linkDownstreamBandwidthKbps
+                if (downstreamBandwidth >= minBandwidthKbps) {
+                    Log.i("InternetCheck", "Connected via Cellular with sufficient bandwidth")
+                    return true
+                } else {
+                    Log.i("InternetCheck", "Cellular bandwidth too low: $downstreamBandwidth Kbps")
+                }
+            }
+        } catch (e: Exception) {
+            Log.e("InternetCheck", "Exception during internet check", e)
+        }
+
+        return false
     }
+
 
     fun getMarkdownAsHtml(text: String): CharSequence? {
         return try {

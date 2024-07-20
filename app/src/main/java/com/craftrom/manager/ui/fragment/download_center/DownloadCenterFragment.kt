@@ -70,7 +70,7 @@ class DownloadCenterFragment : Fragment(), MenuProvider, ToolbarTitleProvider {
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
         recyclerView.adapter = filesAdapter
         // Отримання інформації про пристрій та версію CraftRom
-        val deviceInfo = DeviceSystemInfo.deviceCode()
+        val deviceInfo = DeviceSystemInfo.code()
         val craftromVersion = DeviceSystemInfo.craftromVersion()
         val url = "https://sourceforge.net/projects/craftrom/files/$deviceInfo/$craftromVersion/"
 
@@ -132,14 +132,14 @@ class DownloadCenterFragment : Fragment(), MenuProvider, ToolbarTitleProvider {
             val originalDate = originalDateFormat.parse(originalDateString)
             val displayDate = displayDateFormat.format(originalDate as Date)
 
-            binding.romInfo.romDeviceCodenameInfo.text = getString(R.string.rom_codename_title_info, DeviceSystemInfo.device() , DeviceSystemInfo.deviceCode())
+            binding.romInfo.romDeviceCodenameInfo.text = getString(R.string.rom_codename_title_info, DeviceSystemInfo.device() , DeviceSystemInfo.code())
             binding.romInfo.romVersionInfo.text = getString(R.string.rom_version_info, DeviceSystemInfo.craftromVersion(), DeviceSystemInfo.releaseVersion())
             binding.romInfo.romBuildDateInfo.text = displayDate
             binding.romInfo.homeSecurityInfo.text = Build.VERSION.SECURITY_PATCH
             binding.romInfo.romMaintainerInfo.text = DeviceSystemInfo.craftMaintainer()
 
         } else {
-            binding.romInfoShort.romDeviceCodenameInfo.text = getString(R.string.rom_codename_title_info, DeviceSystemInfo.device() , DeviceSystemInfo.deviceCode())
+            binding.romInfoShort.romDeviceCodenameInfo.text = getString(R.string.rom_codename_title_info, DeviceSystemInfo.device() , DeviceSystemInfo.code())
             binding.romInfoShort.homeSecurityInfo.text = Build.VERSION.SECURITY_PATCH
         }
     }
